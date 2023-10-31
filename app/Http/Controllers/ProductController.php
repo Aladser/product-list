@@ -20,10 +20,6 @@ class ProductController extends Controller
         return view('dashboard', ['products' => $products]);
     }
 
-    public function create()
-    {
-    }
-
     public function store(Request $request)
     {
     }
