@@ -31,21 +31,18 @@ class DatabaseSeeder extends Seeder
         Product::create([
             'article' => 'A1',
             'name' => 'Зефир',
-            'size' => '10',
-            'color' => 'red',
+            'data' => json_encode(['color' => 'red', 'size' => 10]),
         ]);
         Product::create([
             'article' => 'B1',
             'name' => 'Мармелад',
-            'size' => '12',
-            'color' => 'green',
+            'data' => json_encode(['color' => 'blue', 'size' => 20]),
         ]);
         Product::create([
             'article' => 'C1',
             'name' => 'Шоколад',
             'status' => 'unavailable',
-            'size' => '14',
-            'color' => 'blue',
+            'data' => json_encode(['color' => 'green', 'size' => 30]),
         ]);
     }
 }

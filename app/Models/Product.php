@@ -14,4 +14,9 @@ class Product extends Model
         'size' => 'array',
         'color' => 'array',
     ];
+
+    public function activeProducts()
+    {
+        return $this->where('status', 'available');
+    }
 }
