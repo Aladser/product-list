@@ -2,12 +2,16 @@ const form = document.querySelector(".form-new-product");
 const table = document.querySelector("#table-product tbody");
 const errorPrg = document.querySelector("#table-error");
 const backBtn = document.querySelector('.form-new-product_btn-back');
+const addBtn = document.querySelector('.form-new-product_btn-submit');
 
-
-backBtn.onclick = () => {
+// кнопка отмены редактирования
+backBtn.onclick = clearForm;
+// очистка формы
+function clearForm() {
     form.reset();
     backBtn.classList.add('hidden');
     form.setAttribute("data-type", 'add');
+    addBtn.value = 'Добавить';   
 }
 
 setListeners();
@@ -35,9 +39,7 @@ form.onsubmit = (event) => {
 // добавление товара
 function addRow(formData) {
     let process = (data) => {
-        console.log(data);
         if (data.result == 1) {
-            form.reset();
             table.innerHTML += `
             <tr class='table-product__tr relative' id="product-${data.id}">
                 <td class='p-3 border-e border-black'>
@@ -53,6 +55,7 @@ function addRow(formData) {
             </tr>
             `;
             setListeners();
+            clearForm();
             errorPrg.textContent = "";
         } else {
             errorPrg.textContent = data.description;
@@ -92,8 +95,7 @@ function editRow(formData) {
             cells[1].textContent = form.name.value;
             cells[2].textContent = form.color.value;
             cells[3].textContent = form.size.value;
-            form.reset();
-            backBtn.classList.add('hidden');
+            clearForm();
         } else {
             errorPrg.textContent = data.description;
         }
@@ -156,4 +158,5 @@ function editRowClick(row) {
     form.setAttribute('data-id', row.id);
     form.setAttribute("data-type", 'edit');
     backBtn.classList.remove('hidden');
+    addBtn.value = 'Сохранить';
 }

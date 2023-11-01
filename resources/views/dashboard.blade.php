@@ -32,7 +32,7 @@
                             <input type="text" class='w-1/2' id='form-new-product__size' name='size'>
 
                             <div>
-                                <input type="submit" class='mx-auto border border-black mt-2 py-2 px-6 rounded' value="Добавить">
+                                <input type="submit" class='form-new-product_btn-submit mx-auto border border-black mt-2 py-2 px-6 rounded' value="Добавить">
                                 <button class='form-new-product_btn-back mx-auto border border-black mt-2 py-2 px-6 rounded hidden'>Отмена</button>
                             </div>
                         </form>
