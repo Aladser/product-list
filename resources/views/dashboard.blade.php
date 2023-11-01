@@ -19,10 +19,8 @@
 
                     <article class='mb-6 text-center'>
                         <form class='form-new-product' data-type='add'>
-                            @if (Auth::user()->is_admin)
-                                <label for="form-new-product__articul" class='inline-block w-1/5'>Артикул:</label>
-                                <input type="text" class='w-1/2' id='form-new-product__articul' name='articul' required><br>
-                           @endif
+                            <label for="form-new-product__articul" class='inline-block w-1/5'>Артикул:</label>
+                            <input type="text" class='w-1/2' id='form-new-product__articul' name='articul' required><br>
 
                             <label for="form-new-product__name" class='inline-block w-1/5'>Имя:</label>
                             <input type="text" class='w-1/2' id='form-new-product__name' name='name' required><br>

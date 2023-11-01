@@ -86,7 +86,6 @@ class ProductController extends Controller
 
         $product = Product::find($data['id']);
 
-        // дополнительная защита при лишних данных в форме
         if (array_key_exists('articul', $data) && Auth::user()->is_admin) {
             $product->articul = $data['articul'];
         }
@@ -105,10 +104,13 @@ class ProductController extends Controller
         if (strlen($data['name']) < 10) {
             return ['result' => 0, 'description' => 'Длина имени не менее 10 символов'];
         }
+
         // проверка артикула
-        $chr = 'a-zA-Z0-9';
-        if (!preg_match("/^[$chr]+$/", $data['articul'])) {
-            return ['result' => 0, 'description' => 'Неверный артикул: только латинские буквы и цифры'];
+        if (array_key_exists('articul', $data)) {
+            $chr = 'a-zA-Z0-9';
+            if (!preg_match("/^[$chr]+$/", $data['articul'])) {
+                return ['result' => 0, 'description' => 'Неверный артикул: только латинские буквы и цифры'];
+            }
         }
 
         return ['result' => 1];

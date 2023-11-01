@@ -3,7 +3,10 @@ const table = document.querySelector("#table-product tbody");
 const errorPrg = document.querySelector("#table-error");
 const backBtn = document.querySelector('.form-new-product_btn-back');
 const addBtn = document.querySelector('.form-new-product_btn-submit');
+// роль
 const role = document.querySelector('meta[name="role"]').content;
+// поле формы артикула
+const articul = document.querySelector('#form-new-product__articul');
 
 // кнопка отмены редактирования
 backBtn.onclick = clearForm;
@@ -154,11 +157,11 @@ function removeRow(id) {
 // клик редактирования товара
 function editRowClick(row) {
     let cells = row.querySelectorAll("td");
-
-    if (role === 'admin') {
-        form.articul.value = cells[0].childNodes[1].textContent;
+    // поле формы артикула
+    if (role !== 'admin') {
+        form.articul.disabled = true;
     }
-
+    form.articul.value = cells[0].childNodes[1].textContent;
     form.name.value = cells[1].textContent;
     form.color.value = cells[2].textContent;
     form.size.value = cells[3].textContent;
