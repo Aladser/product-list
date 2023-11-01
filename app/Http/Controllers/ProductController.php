@@ -86,6 +86,7 @@ class ProductController extends Controller
 
         $product = Product::find($data['id']);
 
+        // проверка прав пользователя на сервере, что он может изменять артикул
         if (array_key_exists('articul', $data) && Auth::user()->is_admin) {
             $product->articul = $data['articul'];
         }

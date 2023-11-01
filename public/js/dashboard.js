@@ -18,6 +18,8 @@ function clearForm() {
     addBtn.value = 'Добавить';   
 }
 
+
+// события сбрасываются при изменении кода таблицы. переназначение событий
 setListeners();
 function setListeners() {
     table.querySelectorAll(".product__btn-remove").forEach((btn) => {
