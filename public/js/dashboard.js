@@ -2,6 +2,11 @@ const form = document.querySelector('.form-new-product');
 const table = document.querySelector('#table-product tbody');
 const errorPrg = document.querySelector('#table-error');
 
+setListeners();
+function setListeners() {
+    table.querySelectorAll('.product__btn-remove').forEach(btn => {btn.onclick = e => removeRow(e.target.closest('tr').id)});
+}
+
 // добавление товара
 form.onsubmit = (event) => {
     event.preventDefault();
@@ -23,8 +28,8 @@ form.onsubmit = (event) => {
                 <td class='p-3 text-end'>${data.size}</td>
             </tr>
             `;
-            let row = table.querySelector(`#product-${data.id}`);
-            row.querySelector('.product__btn-remove').onclick = e => removeRow(row.id);
+            setListeners();
+            errorPrg.textContent = '';
         } else {
             errorPrg.textContent = data.description;
         }
@@ -48,7 +53,6 @@ form.onsubmit = (event) => {
 }
 
 // удаление товара
-document.querySelectorAll('.product__btn-remove').forEach(btn => {btn.onclick = e => removeRow(e.target.closest('tr').id)});
 function removeRow(id) {
     let data = new URLSearchParams();
     data.set('id', id.slice(id.indexOf('-')+1));
