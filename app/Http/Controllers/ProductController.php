@@ -25,14 +25,10 @@ class ProductController extends Controller
         $data = $request->all();
 
         if (!Product::where('articul', $data['articul'])->exists()) {
-            // валидация длины имени
-            if (strlen($data['name']) < 10) {
-                return ['result' => 0, 'description' => 'Длина имени не менее 10 символов'];
-            }
-            // проверка артикула
-            $chr = 'a-zA-Z0-9';
-            if (!preg_match("/^[$chr]+$/", $data['articul'])) {
-                return ['result' => 0, 'description' => 'Неверный артикул: только латинские буквы и цифры'];
+            // валидация
+            $validateResult = $this->validateFields($data);
+            if ($validateResult['result'] == 0) {
+                return $validateResult;
             }
 
             $product = new Product();
@@ -65,15 +61,37 @@ class ProductController extends Controller
         return ['result' => $isDeleted ? 1 : 0];
     }
 
-    public function show($id)
+    public function update(Request $request)
     {
+        $data = $request->all();
+
+        $validateResult = $this->validateFields($data);
+        if ($validateResult['result'] == 0) {
+            return $validateResult;
+        }
+
+        $product = Product::find($data['id']);
+        $product->articul = $data['articul'];
+        $product->name = $data['name'];
+        $product->data = json_encode(['color' => $data['color'], 'size' => $data['size']]);
+        $isSaved = $product->save();
+
+        return ['result' => $isSaved ? 1 : 0];
     }
 
-    public function edit($id)
+    // валидация полей
+    private function validateFields($data)
     {
-    }
+        // валидация длины имени
+        if (strlen($data['name']) < 10) {
+            return ['result' => 0, 'description' => 'Длина имени не менее 10 символов'];
+        }
+        // проверка артикула
+        $chr = 'a-zA-Z0-9';
+        if (!preg_match("/^[$chr]+$/", $data['articul'])) {
+            return ['result' => 0, 'description' => 'Неверный артикул: только латинские буквы и цифры'];
+        }
 
-    public function update(Request $request, $id)
-    {
+        return ['result' => 1];
     }
 }

@@ -1,23 +1,47 @@
-const form = document.querySelector('.form-new-product');
-const table = document.querySelector('#table-product tbody');
-const errorPrg = document.querySelector('#table-error');
+const form = document.querySelector(".form-new-product");
+const table = document.querySelector("#table-product tbody");
+const errorPrg = document.querySelector("#table-error");
+const backBtn = document.querySelector('.form-new-product_btn-back');
+
+
+backBtn.onclick = () => {
+    form.reset();
+    backBtn.classList.add('hidden');
+    form.setAttribute("data-type", 'add');
+}
 
 setListeners();
 function setListeners() {
-    table.querySelectorAll('.product__btn-remove').forEach(btn => {btn.onclick = e => removeRow(e.target.closest('tr').id)});
+    table.querySelectorAll(".product__btn-remove").forEach((btn) => {
+        btn.onclick = (e) => removeRow(e.target.closest("tr").id);
+    });
+    table.querySelectorAll(".product__btn-edit").forEach((btn) => {
+        btn.onclick = (e) => editRowClick(e.target.closest("tr"));
+    });
 }
 
-// добавление товара
+// Добавление или изменение товара
 form.onsubmit = (event) => {
     event.preventDefault();
     let formData = new FormData(event.srcElement);
 
+    if (form.getAttribute("data-type") == "add") {
+        addRow(formData);
+    } else {
+        editRow(formData);
+    }
+};
+
+// добавление товара
+function addRow(formData) {
     let process = (data) => {
+        console.log(data);
         if (data.result == 1) {
+            form.reset();
             table.innerHTML += `
             <tr class='table-product__tr relative' id="product-${data.id}">
                 <td class='p-3 border-e border-black'>
-                    ${data.articul}
+                    <span>${data.articul}</span>
                     <div class='inline float-right'>
                         <button class='product__btn-edit opacity-50' title='Редактировать'>✎</button>
                         <button class='product__btn-remove opacity-50' title='Удалить'>🗑</button>
@@ -29,7 +53,7 @@ form.onsubmit = (event) => {
             </tr>
             `;
             setListeners();
-            errorPrg.textContent = '';
+            errorPrg.textContent = "";
         } else {
             errorPrg.textContent = data.description;
         }
@@ -43,10 +67,50 @@ form.onsubmit = (event) => {
 
     // запрос на сервер
     ServerRequest.execute(
-        '/product',
+        "/product",
         process,
         "post",
-        this.msgElement,
+        errorPrg,
+        formData,
+        headers
+    );
+}
+
+// изменение товара
+function editRow(formData) {
+    // id карточки в БД
+    let id = form.getAttribute('data-id');
+    id = id.slice(id.indexOf('-')+1);
+    formData.set('id', id);
+
+    let process = (data) => {
+        if (data.result == 1) {
+            form.setAttribute("data-type", 'add');
+            // id измененной строки
+            let cells = document.querySelector(`#${form.getAttribute("data-id")}`).querySelectorAll("td");
+            cells[0].childNodes[1].textContent = form.articul.value;
+            cells[1].textContent = form.name.value;
+            cells[2].textContent = form.color.value;
+            cells[3].textContent = form.size.value;
+            form.reset();
+            backBtn.classList.add('hidden');
+        } else {
+            errorPrg.textContent = data.description;
+        }
+    };
+
+    let headers = {
+        "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+    };
+
+    // запрос на сервер
+    ServerRequest.execute(
+        "/product/update",
+        process,
+        "post",
+        errorPrg,
         formData,
         headers
     );
@@ -55,7 +119,7 @@ form.onsubmit = (event) => {
 // удаление товара
 function removeRow(id) {
     let data = new URLSearchParams();
-    data.set('id', id.slice(id.indexOf('-')+1));
+    data.set("id", id.slice(id.indexOf("-") + 1));
 
     let headers = {
         "X-CSRF-TOKEN": document
@@ -66,10 +130,10 @@ function removeRow(id) {
     let process = (data) => {
         if (data.result == 1) {
             table.querySelector(`#${id}`).remove();
-        }else {
+        } else {
             errorPrg.textContent = data;
         }
-    }
+    };
 
     // запрос на сервер
     ServerRequest.execute(
@@ -80,4 +144,16 @@ function removeRow(id) {
         data,
         headers
     );
+}
+
+// клик редактирования товара
+function editRowClick(row) {
+    let cells = row.querySelectorAll("td");
+    form.articul.value = cells[0].childNodes[1].textContent;
+    form.name.value = cells[1].textContent;
+    form.color.value = cells[2].textContent;
+    form.size.value = cells[3].textContent;
+    form.setAttribute('data-id', row.id);
+    form.setAttribute("data-type", 'edit');
+    backBtn.classList.remove('hidden');
 }
