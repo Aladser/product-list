@@ -3,6 +3,7 @@ const table = document.querySelector("#table-product tbody");
 const errorPrg = document.querySelector("#table-error");
 const backBtn = document.querySelector('.form-new-product_btn-back');
 const addBtn = document.querySelector('.form-new-product_btn-submit');
+const role = document.querySelector('meta[name="role"]').content;
 
 // кнопка отмены редактирования
 backBtn.onclick = clearForm;
@@ -17,10 +18,10 @@ function clearForm() {
 setListeners();
 function setListeners() {
     table.querySelectorAll(".product__btn-remove").forEach((btn) => {
-        btn.onclick = (e) => removeRow(e.target.closest("tr").id);
+        btn.onclick = () => removeRow(btn.closest("tr").id);
     });
     table.querySelectorAll(".product__btn-edit").forEach((btn) => {
-        btn.onclick = (e) => editRowClick(e.target.closest("tr"));
+        btn.onclick = () => editRowClick(btn.closest("tr"));
     });
 }
 
@@ -91,7 +92,9 @@ function editRow(formData) {
             form.setAttribute("data-type", 'add');
             // id измененной строки
             let cells = document.querySelector(`#${form.getAttribute("data-id")}`).querySelectorAll("td");
-            cells[0].childNodes[1].textContent = form.articul.value;
+            if (role === 'admin') {
+                cells[0].childNodes[1].textContent = form.articul.value;
+            }
             cells[1].textContent = form.name.value;
             cells[2].textContent = form.color.value;
             cells[3].textContent = form.size.value;
@@ -151,7 +154,11 @@ function removeRow(id) {
 // клик редактирования товара
 function editRowClick(row) {
     let cells = row.querySelectorAll("td");
-    form.articul.value = cells[0].childNodes[1].textContent;
+
+    if (role === 'admin') {
+        form.articul.value = cells[0].childNodes[1].textContent;
+    }
+
     form.name.value = cells[1].textContent;
     form.color.value = cells[2].textContent;
     form.size.value = cells[3].textContent;

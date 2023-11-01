@@ -4,17 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     public function index()
     {
+        // роль пользователя
+        if (Auth::user()->is_admin) {
+            config(['products.role' => 'admin']);
+        } else {
+            config(['products.role' => 'user']);
+        }
+
         $products = [];
         foreach (Product::activeProducts() as $activeProduct) {
             $data = json_decode($activeProduct->data);
             $color = $data->color;
             $size = $data->size;
-            $products[] = ['id' => $activeProduct->id, 'articul' => $activeProduct->articul, 'name' => $activeProduct->name, 'color' => $color, 'size' => $size];
+            $products[] = [
+                'id' => $activeProduct->id,
+                'articul' => $activeProduct->articul,
+                'name' => $activeProduct->name,
+                'color' => $color,
+                'size' => $size,
+            ];
         }
 
         return view('dashboard', ['products' => $products]);
@@ -71,7 +85,12 @@ class ProductController extends Controller
         }
 
         $product = Product::find($data['id']);
-        $product->articul = $data['articul'];
+
+        // дополнительная защита при лишних данных в форме
+        if (array_key_exists('articul', $data) && Auth::user()->is_admin) {
+            $product->articul = $data['articul'];
+        }
+
         $product->name = $data['name'];
         $product->data = json_encode(['color' => $data['color'], 'size' => $data['size']]);
         $isSaved = $product->save();

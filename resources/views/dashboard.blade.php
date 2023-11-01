@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('meta')
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="role" content="{{ config('products.role') }}">
     @endsection
 
     @section('js')
@@ -18,10 +18,12 @@
                 <div class="p-6 bg-white border-b border-gray-200">
 
                     <article class='mb-6 text-center'>
-                        <form action = '/' class='form-new-product' data-type='add'>
-                            <label for="form-new-product__articul" class='inline-block w-1/5'>Артикул:</label>
-                            <input type="text" class='w-1/2' id='form-new-product__articul' name='articul' required><br>
-                            
+                        <form class='form-new-product' data-type='add'>
+                            @if (Auth::user()->is_admin)
+                                <label for="form-new-product__articul" class='inline-block w-1/5'>Артикул:</label>
+                                <input type="text" class='w-1/2' id='form-new-product__articul' name='articul' required><br>
+                           @endif
+
                             <label for="form-new-product__name" class='inline-block w-1/5'>Имя:</label>
                             <input type="text" class='w-1/2' id='form-new-product__name' name='name' required><br>
                             
