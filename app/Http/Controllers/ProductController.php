@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PHPMailerController;
 
 class ProductController extends Controller
 {
@@ -52,6 +53,12 @@ class ProductController extends Controller
             $isSaved = $product->save();
 
             if ($isSaved) {
+                $message = "
+                    <body>
+                    <p>Появился новый продукт {$data['articul']}: {$data['name']}</p>
+                    </body>
+                ";
+                PHPMailerController::composeEmail($message);
                 return [
                     'result' => 1,
                     'id' => $product->id,
