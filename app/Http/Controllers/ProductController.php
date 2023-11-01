@@ -23,7 +23,18 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+
         if (!Product::where('articul', $data['articul'])->exists()) {
+            // валидация длины имени
+            if (strlen($data['name']) < 10) {
+                return ['result' => 0, 'description' => 'Длина имени не менее 10 символов'];
+            }
+            // проверка артикула
+            $chr = 'a-zA-Z0-9';
+            if (!preg_match("/^[$chr]+$/", $data['articul'])) {
+                return ['result' => 0, 'description' => 'Неверный артикул: только латинские буквы и цифры'];
+            }
+
             $product = new Product();
             $product->articul = $data['articul'];
             $product->name = $data['name'];
@@ -39,7 +50,7 @@ class ProductController extends Controller
                     'color' => $data['color'],
                     'size' => $data['size']];
             } else {
-                return ['result' => 0, 'descrition' => 'серверная ошибка сохранения'];
+                return ['result' => 0, 'description' => 'серверная ошибка сохранения'];
             }
         } else {
             return ['result' => 0, 'description' => 'артикул существует'];

@@ -20,10 +20,10 @@
                     <article class='mb-6 text-center'>
                         <form action = '/' class='form-new-product'>
                             <label for="form-new-product__articul" class='inline-block w-1/5'>Артикул:</label>
-                            <input type="text" class='w-1/2' id='form-new-product__articul' name='articul'><br>
+                            <input type="text" class='w-1/2' id='form-new-product__articul' name='articul' required><br>
                             
                             <label for="form-new-product__name" class='inline-block w-1/5'>Имя:</label>
-                            <input type="text" class='w-1/2' id='form-new-product__name' name='name'><br>
+                            <input type="text" class='w-1/2' id='form-new-product__name' name='name' required><br>
                             
                             <label for="form-new-product__color" class='inline-block w-1/5'>Цвет:</label>
                             <input type="text" class='w-1/2' id='form-new-product__color'name='color'><br>
