@@ -1,4 +1,8 @@
 <x-app-layout>
+    @section('meta')
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+    @endsection
+
     @section('js')
         <script src="/js/ServerRequest.js" defer></script>
         <script src="/js/dashboard.js" defer></script>
@@ -32,7 +36,8 @@
                     </article>
 
                     <article>
-                        <table class='table-auto w-full mx-auto text-sm text-left text-gray-500 dark:text-gray-400 border border-black' id='table-product'>
+                        <p id='table-error' class='font-semibold pb-4 text-center text-red-500 text-xl font-semibold'></p>
+                        <table id='table-product' class='table-auto w-full mx-auto text-sm text-left text-gray-500 dark:text-gray-400 border border-black'>
                             <thead class='w-full text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b border-black'>
                                 <tr> 
                                     <th class='p-3 w-1/4 border-e border-black'>Артикул</th> 
@@ -43,8 +48,14 @@
                             <thead>
                             <tbody>
                                 @foreach ($products as $product)
-                                    <tr class='table-product__tr relative' id="{{$product['id']}}">
-                                        <td class='p-3 border-e border-black'>{{$product['article']}}</td>
+                                    <tr class='table-product__tr ' id="product-{{$product['id']}}">
+                                        <td class='p-3 border-e border-black relative'>
+                                            {{$product['articul']}}
+                                            <div class='inline float-right'>
+                                                <button class='product__btn-edit opacity-50' title='Редактировать'>✎</button>
+                                                <button class='product__btn-remove opacity-50' title='Удалить'>🗑</button>
+                                            </div>
+                                        </td>
                                         <td class='p-3 text-center border-e border-black'>{{$product['name']}}</td>
                                         <td class='p-3 text-end border-e border-black'>{{$product['color']}}</td>
                                         <td class='p-3 text-end'>{{$product['size']}}</td>

@@ -11,7 +11,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
 
-            $table->string('article', 255)->unique();
+            $table->string('articul', 255)->unique();
             $table->string('name', 255)->nullable(false);
 
             // считаю, что такая реализация лучше. Отсеивает лишние значения

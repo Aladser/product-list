@@ -17,6 +17,6 @@ class Product extends Model
 
     public static function activeProducts()
     {
-        return Product::where('status', 'available')->select('id', 'article', 'name', 'data')->get();
+        return Product::where('status', 'available')->select('id', 'articul', 'name', 'data')->get();
     }
 }

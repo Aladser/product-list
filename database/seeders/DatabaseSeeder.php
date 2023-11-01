@@ -29,17 +29,17 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Product::create([
-            'article' => 'A1',
+            'articul' => 'A1',
             'name' => 'Зефир',
             'data' => json_encode(['color' => 'red', 'size' => 10]),
         ]);
         Product::create([
-            'article' => 'B1',
+            'articul' => 'B1',
             'name' => 'Мармелад',
             'data' => json_encode(['color' => 'blue', 'size' => 20]),
         ]);
         Product::create([
-            'article' => 'C1',
+            'articul' => 'C1',
             'name' => 'Шоколад',
             'status' => 'unavailable',
             'data' => json_encode(['color' => 'green', 'size' => 30]),
