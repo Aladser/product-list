@@ -6,9 +6,26 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PHPMailerController;
+use App\EMailSender;
 
 class ProductController extends Controller
 {
+    private $eMailSender;
+
+    public function __construct()
+    {
+        // $smtpSrv, $username, $password, $smtpSecure, $port, $emailSender, $emailSenderName
+        $this->eMailSender = new EMailSender(
+            env('MAIL_MAILER'),
+            env('MAIL_USERNAME'),
+            env('MAIL_PASSWORD'),
+            env('MAIL_ENCRYPTION'),
+            env('MAIL_PORT'),
+            env('MAIL_FROM_ADDRESS'),
+            env('MAIL_FROM_NAME')
+        );
+    }
+
     public function index()
     {
         // роль пользователя
@@ -53,12 +70,15 @@ class ProductController extends Controller
             $isSaved = $product->save();
 
             if ($isSaved) {
+                // отправка письма
                 $message = "
                     <body>
-                    <p>Появился новый продукт {$data['articul']}: {$data['name']}</p>
+                        <h4>Появился новый продукт</h4>
+                        <p>Артикул:{$data['articul']}</p>
+                        <p>Название:{$data['name']}</p></p> 
                     </body>
                 ";
-                PHPMailerController::composeEmail($message);
+                $this->eMailSender->send('Магазин: новый продукт', $message, config('products.email'));
                 return [
                     'result' => 1,
                     'id' => $product->id,

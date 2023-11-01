@@ -15,7 +15,8 @@ function clearForm() {
     form.reset();
     backBtn.classList.add('hidden');
     form.setAttribute("data-type", 'add');
-    addBtn.value = 'Добавить';   
+    addBtn.value = 'Добавить';
+    errorPrg.textContent = '';
 }
 
 
