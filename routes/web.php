@@ -10,3 +10,5 @@ Route::get('/product', [ProductController::class, 'index'])->middleware(['auth']
 Route::post('/product', [ProductController::class, 'store']);
 Route::post('/product/remove', [ProductController::class, 'destroy']);
 Route::post('/product/update', [ProductController::class, 'update']);
+// удаление товара. Без $!!!
+Route::delete('/product/{id}', [ProductController::class, 'destroy']);

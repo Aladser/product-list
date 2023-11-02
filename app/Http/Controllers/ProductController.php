@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\EMailSender;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\PHPMailerController;
-use App\EMailSender;
 
 class ProductController extends Controller
 {
@@ -71,21 +70,25 @@ class ProductController extends Controller
 
             if ($isSaved) {
                 // отправка письма
+                /*
                 $message = "
                     <body>
                         <h4>Появился новый продукт</h4>
                         <p>Артикул:{$data['articul']}</p>
-                        <p>Название:{$data['name']}</p></p> 
+                        <p>Название:{$data['name']}</p></p>
                     </body>
                 ";
                 $this->eMailSender->send('Магазин: новый продукт', $message, config('products.email'));
+                */
                 return [
                     'result' => 1,
-                    'id' => $product->id,
-                    'articul' => $data['articul'],
-                    'name' => $data['name'],
-                    'color' => $data['color'],
-                    'size' => $data['size']];
+                    'row' => [
+                        'id' => $product->id,
+                        'articul' => $data['articul'],
+                        'name' => $data['name'],
+                        'color' => $data['color'],
+                        'size' => $data['size']],
+                    ];
             } else {
                 return ['result' => 0, 'description' => 'серверная ошибка сохранения'];
             }
@@ -94,9 +97,8 @@ class ProductController extends Controller
         }
     }
 
-    public function destroy(Request $request)
+    public function destroy($id, Request $request)
     {
-        $id = $request->all()['id'];
         $isDeleted = Product::find($id)->delete();
 
         return ['result' => $isDeleted ? 1 : 0];
