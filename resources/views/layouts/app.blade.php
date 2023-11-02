@@ -22,11 +22,16 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <main>
-                {{ $slot }}
-            </main>
+            <div class='flex'>
+                <div class='w-1/12 border border-black'>
+                </div>
+                <div class='w-full'>
+                    @include('layouts.navigation')
+                    <main>
+                        {{ $slot }}
+                    </main>
+                </div>
+            </div>
         </div>
     </body>
 </html>
