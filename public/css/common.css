@@ -1,3 +1,16 @@
 .bg-theme {
     background-color: #F2F6FA;
 }
+
+.bg-black-theme {
+    background-color: #374050;
+}
+
+.text-w-theme {
+    font-size: 0.75rem; /* 12px */
+    line-height: 0.8rem; /* 16px */
+}
+
+.w-theme {
+    width: 10%;
+}

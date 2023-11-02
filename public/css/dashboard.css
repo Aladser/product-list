@@ -1,0 +1,10 @@
+.container-logo{
+    position: absolute;
+    width: 79px;
+    height: 59px;
+    left: -1px;
+    top: 0px;
+
+    background: #ffffff;
+    border-radius: 0px 0px 20px 0px;
+}

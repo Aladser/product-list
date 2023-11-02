@@ -47,7 +47,7 @@
         </section>
 
         <section class='text-right w-1/2 pt-6 pe-8'>
-            <a href="{{route('product.create')}}" class="rounded bg-sky-500 text-white px-6 pb-[6px] pt-2 text-xs font-medium 
+            <a href="{{route('product.create')}}" class="rounded bg-sky-500 text-white px-10 py-2 text-xs font-medium 
                     leading-normal transition duration-150 ease-in-out hover:bg-opacity-70 hover:bg-sky-400
                     focus:border-neutral-800 focus:text-neutral-800 focus:outline-none focus:ring-0 
                     active:border-neutral-900 active:text-neutral-900">Добавить
