@@ -26,7 +26,7 @@
                 </div>
             @endif
 
-            <?php echo phpinfo(); ?>
+            <h1 class='font-semibold text-xl text-gray-800 leading-tight'>Главная страница</h1>
         </div>
     </body>
 </html>
