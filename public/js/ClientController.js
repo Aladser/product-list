@@ -18,16 +18,18 @@ class ClientController {
             this.table
                 .querySelectorAll(`.${this.table.id}__tr`)
                 .forEach((row) => (row.onclick = (e) => this.clickRow(e)));
+
+            this.table
+                .querySelectorAll(".product__btn-remove")
+                .forEach((btn) => {
+                    btn.onclick = (e) => this.remove(e.target.closest("tr"));
+                });
         }
 
         // форма добавления нового элемента
         if (this.form) {
             this.form.onsubmit = (event) => this.add(form, event);
         }
-
-        this.table.querySelectorAll('.product__btn-remove').forEach(btn => {
-            btn.onclick = e => this.remove(e.target.closest('tr'));
-        });
     }
 
     // добавить запись в БД
@@ -42,7 +44,7 @@ class ClientController {
                 this.msgElement.textContent = data.description;
             }
         };
-        
+
         // данные формы
         let formData = new FormData(form);
         // заголовки
@@ -62,7 +64,7 @@ class ClientController {
 
     remove(row) {
         let id = row.id;
-        id = id.slice(id.indexOf('-')+1);
+        id = id.slice(id.indexOf("-") + 1);
         // заголовки
         let headers = {
             "X-CSRF-TOKEN": this.csrfToken.getAttribute("content"),
@@ -90,7 +92,6 @@ class ClientController {
     }
 
     processData(row, form) {
-      console.log(row);
-      console.log(form);
+        alert("нет реализации метода processData класса TableFrontController");
     }
 }

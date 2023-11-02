@@ -1,10 +1,13 @@
+const role = document.querySelector('meta[name="role"]').content;
+
 /** Клиентский табличный контроллер
  * @param {*} URL серверного контроллера
- * @param {*} table  таблица
  * @param {*} msgElement инфоэлемент
+ * @param {*} form форма добавления
  */
 const tableController = new ProductClientController(
     "/product",
-    document.querySelector("#table-product tbody"),
+    null,
     document.querySelector("#table-error"),
+    document.querySelector(".form-new-product")
 );

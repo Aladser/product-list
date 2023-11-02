@@ -51,6 +51,11 @@ class ProductController extends Controller
         return view('dashboard', ['products' => $products]);
     }
 
+    public function create()
+    {
+        return view('create-product');
+    }
+
     public function store(Request $request)
     {
         $data = $request->all();
@@ -102,6 +107,10 @@ class ProductController extends Controller
         $isDeleted = Product::find($id)->delete();
 
         return ['result' => $isDeleted ? 1 : 0];
+    }
+
+    public function edit($id)
+    {
     }
 
     public function update(Request $request)
