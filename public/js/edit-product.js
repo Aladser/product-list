@@ -4,8 +4,8 @@
  * @param {*} form форма добавления
  */
 const tableController = new ProductClientController(
-    "/product",
+    "/product/update",
     null,
     document.querySelector("#table-error"),
-    document.querySelector(".form-new-product")
+    document.querySelector(".form-edit-product")
 );

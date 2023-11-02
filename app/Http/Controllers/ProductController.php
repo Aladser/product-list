@@ -27,13 +27,6 @@ class ProductController extends Controller
 
     public function index()
     {
-        // роль пользователя
-        if (Auth::user()->is_admin) {
-            config(['products.role' => 'admin']);
-        } else {
-            config(['products.role' => 'user']);
-        }
-
         $products = [];
         foreach (Product::activeProducts() as $activeProduct) {
             $data = json_decode($activeProduct->data);
@@ -111,6 +104,24 @@ class ProductController extends Controller
 
     public function edit($id)
     {
+        if (Auth::user()->is_admin) {
+            config(['products.role' => 'admin']);
+        } else {
+            config(['products.role' => 'user']);
+        }
+
+        $product = Product::find($id);
+        $data = [];
+        $data['id'] = $product->id;
+        $data['articul'] = $product->articul;
+        $data['name'] = $product->name;
+        // объект свойств в массив
+        $properties = (array) json_decode($product->data);
+        extract($properties);
+        $data['color'] = $color;
+        $data['size'] = $size;
+
+        return view('edit-product', ['product' => $data]);
     }
 
     public function update(Request $request)
@@ -125,7 +136,7 @@ class ProductController extends Controller
         $product = Product::find($data['id']);
 
         // проверка прав пользователя на сервере, что он может изменять артикул
-        if (array_key_exists('articul', $data) && Auth::user()->is_admin) {
+        if (Auth::user()->is_admin) {
             $product->articul = $data['articul'];
         }
 

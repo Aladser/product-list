@@ -7,15 +7,17 @@ class ProductClientController extends ClientController {
         // действия после успешного добавления данных в БД
         let process = (data) => {
             console.log(data);
-            this.msgElement.textContent = data.result == 1 ? 'товар добавлен' : data.description;
+            this.msgElement.textContent = data.result == 1 ? 'товар изменен' : data.description;
         };
 
         // данные формы
         let formData = new FormData(form);
+        formData.set('id', form.getAttribute('data-id'));
         // заголовки
         let headers = {
             "X-CSRF-TOKEN": this.csrfToken.getAttribute("content"),
         };
+ 
         // запрос на сервер
         ServerRequest.execute(
             this.URL,

@@ -42,7 +42,9 @@
                                     <td class='p-3 border-e border-black relative'>
                                         <span>{{$product['articul']}}</span>
                                         <div class='inline float-right'>
-                                            <button class='product__btn-edit opacity-50' title='Редактировать'>✎</button>
+                                            <a href="/product/edit/{{$product['id']}}">
+                                                <button class='product__btn-edit opacity-50' title='Редактировать'>✎</button>
+                                            </a>
                                             <button class='product__btn-remove opacity-50' title='Удалить'>🗑</button>
                                         </div>
                                     </td>
