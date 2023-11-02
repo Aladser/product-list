@@ -21,9 +21,9 @@
         <script src="https://cdn.tailwindcss.com"></script>
         @yield('js')
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased h-screen bg-theme">
         <div class='flex'>
-            <div class='w-1/12 border border-black'>
+            <div class='w-1/12 h-screen bg-black'>
             </div>
             <div class='w-full'>
                 @include('layouts.navigation')
