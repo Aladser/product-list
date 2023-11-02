@@ -14,6 +14,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="/css/common.css">
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
@@ -21,16 +22,14 @@
         @yield('js')
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            <div class='flex'>
-                <div class='w-1/12 border border-black'>
-                </div>
-                <div class='w-full'>
-                    @include('layouts.navigation')
-                    <main>
-                        {{ $slot }}
-                    </main>
-                </div>
+        <div class='flex'>
+            <div class='w-1/12 border border-black'>
+            </div>
+            <div class='w-full'>
+                @include('layouts.navigation')
+                <main>
+                    {{ $slot }}
+                </main>
             </div>
         </div>
     </body>

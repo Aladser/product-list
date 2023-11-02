@@ -16,13 +16,13 @@
 
     <div class="flex bg-slate-200 overflow-hidden shadow-sm sm:rounded-lg">
         <section class="bg-white w-1/2">
-            <table id='table-product' class='table-auto w-full mx-auto text-sm text-left text-gray-500 dark:text-gray-400 border border-black'>
-                <thead class='w-full text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b border-black'>
+            <table id='table-product' class='w-full mx-auto text-sm text-left text-gray-500'>
+                <thead class='w-full text-xs text-gray-700 uppercase bg-gray-50'>
                     <tr> 
-                        <th class='p-3 w-1/4 border-e border-black'>Артикул</th> 
-                        <th class='p-3 text-center border-e border-black'>Название</th> 
-                        <th class='p-3 w-1/4 text-end border-e border-black'>Цвет</th>
-                        <th class='p-3 w-1/4 text-end'>Размер</th>
+                        <th class='p-3 w-1/4 bg-theme'>Артикул</th> 
+                        <th class='p-3 text-center bg-theme'>Название</th> 
+                        <th class='p-3 w-1/4 text-end bg-theme'>Цвет</th>
+                        <th class='p-3 w-1/4 text-end bg-theme'>Размер</th>
                     </tr>
                 <thead>
                 <tbody>
@@ -46,7 +46,7 @@
             </table>
         </section>
 
-        <section class='text-right border w-1/2 p-4'>
+        <section class='text-right w-1/2 p-4 bg-theme'>
             <p id='table-error' class='hidden font-semibold pb-4 text-center text-red-500 text-xl font-semibold'></p>
             <a href="{{route('product.create')}}" class="rounded bg-sky-500 text-white px-6 pb-[6px] pt-2 text-xs font-medium 
                     leading-normal transition duration-150 ease-in-out hover:bg-opacity-70 hover:bg-sky-400
