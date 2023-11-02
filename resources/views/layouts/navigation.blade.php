@@ -1,8 +1,8 @@
 <nav x-data="{ open: false }" class="bg-white">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto">
-        <div class="flex justify-between h-16">
-            <div class="flex ">
+    <div class="mx-auto border-2">
+        <div class="flex justify-between h-16 ps-4 pe-8">
+            <div class="flex">
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:flex">
                     <x-nav-link :href="route('product')" :active="request()->routeIs('product')">ПРОДУКТЫ</x-nav-link>
