@@ -20,7 +20,7 @@
             <a href="{{route('product')}}"><input type="button" class='text-white absolute top-0 right-0'value="x"></a>
         </h2>
         <article  class='inline-block w-full'>
-            <form class='form-edit-product' data-type='edit'>
+            <form class='form-edit-product' data-type='edit' data-id="{{$product['id']}}">
                 @if (config('products.role') === 'admin')
                     <label for="form-new-product__articul" class='block w-2/3 text-white text-xs pb-2'>Артикул:</label>
                     <input type="text" class='w-2/3 rounded mb-4' id='form-new-product__articul' name='articul' required value="{{$product['articul']}}"><br>

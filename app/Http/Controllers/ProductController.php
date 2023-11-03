@@ -81,7 +81,6 @@ class ProductController extends Controller
                 return [
                     'result' => 1,
                     'row' => [
-                        'id' => $product->id,
                         'articul' => $data['articul'],
                         'name' => $data['name'],
                         'color' => $data['color'],
