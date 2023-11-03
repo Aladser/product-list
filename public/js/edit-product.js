@@ -9,6 +9,6 @@ const tableController = new ProductClientController(
     "/product/update",
     null,
     document.querySelector("#table-error"),
-    document.querySelector(".form-edit-product"),
+    document.querySelector(`.${formClass}`),
     formClass
 );

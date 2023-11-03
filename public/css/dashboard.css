@@ -8,3 +8,7 @@
     background: #ffffff;
     border-radius: 0px 0px 20px 0px;
 }
+
+.table-product__tr--active {
+    background-color: #ddd;
+}

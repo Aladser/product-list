@@ -27,8 +27,8 @@
                 <thead>
                 <tbody>
                     @foreach ($products as $product)
-                        <tr class='table-product__tr border-b-2 border-gray-400' id="product-{{$product['id']}}">
-                            <td class='p-3 relative bg-white'>
+                        <tr class='table-product__tr border-b-2 border-gray-40 bg-white cursor-pointer' id="product-{{$product['id']}}">
+                            <td class='p-3 relative'>
                                 <span>{{$product['articul']}}</span>
                                 <div class='inline float-right'>
                                     <a href="/product/{{$product['id']}}">
@@ -40,9 +40,9 @@
                                     <button class='product__btn-remove opacity-50' title='Удалить'>🗑</button>
                                 </div>
                             </td>
-                            <td class='p-3 bg-white'>{{$product['name']}}</td>
-                            <td class='p-3 bg-white'>{{$product['status']}}</td>
-                            <td class='p-3 bg-white'>
+                            <td class='p-3'>{{$product['name']}}</td>
+                            <td class='p-3'>{{$product['status']}}</td>
+                            <td class='p-3'>
                                 @foreach ($product['data'] as $key => $value)
                                     {{$key}}: {{$value}}<br>
                                 @endforeach
@@ -59,20 +59,20 @@
                     focus:border-neutral-800 focus:text-neutral-800 focus:outline-none focus:ring-0 
                     active:border-neutral-900 active:text-neutral-900" title='Добавить'>Добавить
             </a><br>
-            <a class="btn-info mb-1 text-center inline-block w-40 rounded bg-sky-500 text-white px-10 py-2 text-xs font-medium 
+            <a class="mb-1 text-center inline-block w-40 rounded bg-sky-500 text-white px-10 py-2 text-xs font-medium 
                     leading-normal transition duration-150 ease-in-out hover:bg-opacity-70 hover:bg-sky-400
                     focus:border-neutral-800 focus:text-neutral-800 focus:outline-none focus:ring-0 
-                    active:border-neutral-900 active:text-neutral-900 hidden" title='Информация'>Информация
+                    active:border-neutral-900 active:text-neutral-900 hidden" id='btn-info' title='Информация'>Информация
             </a><br>
-            <a class="btn-edit mb-1 text-center inline-block w-40 rounded bg-sky-500 text-white px-10 py-2 text-xs font-medium 
+            <a class="mb-1 text-center inline-block w-40 rounded bg-sky-500 text-white px-10 py-2 text-xs font-medium 
                     leading-normal transition duration-150 ease-in-out hover:bg-opacity-70 hover:bg-sky-400
                     focus:border-neutral-800 focus:text-neutral-800 focus:outline-none focus:ring-0 
-                    active:border-neutral-900 active:text-neutral-900 hidden" title='Редактировать'>Редактировать
+                    active:border-neutral-900 active:text-neutral-900 hidden" id='btn-edit' title='Редактировать'>Редактировать
             </a><br>
-            <button class="btn-remove mb-1 text-center inline-block w-40 rounded bg-sky-500 text-white px-10 py-2 text-xs font-medium 
+            <button class="mb-1 text-center inline-block w-40 rounded bg-sky-500 text-white px-10 py-2 text-xs font-medium 
                     leading-normal transition duration-150 ease-in-out hover:bg-opacity-70 hover:bg-sky-400
                     focus:border-neutral-800 focus:text-neutral-800 focus:outline-none focus:ring-0 
-                    active:border-neutral-900 active:text-neutral-900 hidden" title='Удалить'>Удалить
+                    active:border-neutral-900 active:text-neutral-900 hidden" id='btn-remove' title='Удалить'>Удалить
             </button>      
             <p id='table-error' class='font-semibold pb-4 text-center text-red-500 text-xl font-semibold'></p>
         </section>
