@@ -1,3 +1,5 @@
+const formClass = 'form-edit-product';
+
 /** Клиентский табличный контроллер
  * @param {*} URL серверного контроллера
  * @param {*} msgElement инфоэлемент
@@ -7,5 +9,6 @@ const tableController = new ProductClientController(
     "/product/update",
     null,
     document.querySelector("#table-error"),
-    document.querySelector(".form-edit-product")
+    document.querySelector(".form-edit-product"),
+    formClass
 );

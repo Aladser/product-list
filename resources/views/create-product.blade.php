@@ -12,6 +12,7 @@
         <script src="/js/ClientController.js" defer></script>
         <script src="/js/ProductClientController.js" defer></script>
         <script src="/js/create-product.js" defer></script>
+        <script src="/js/attributes.js" defer></script>
     @endsection
 
     <div class="bg-black-theme overflow-hidden pt-4 ps-2 w-200">

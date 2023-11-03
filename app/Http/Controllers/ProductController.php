@@ -98,6 +98,7 @@ class ProductController extends Controller
         return ['result' => $isDeleted ? 1 : 0];
     }
 
+    // форма редактирования
     public function edit($id)
     {
         if (Auth::user()->is_admin) {
@@ -111,15 +112,13 @@ class ProductController extends Controller
         $data['id'] = $product->id;
         $data['articul'] = $product->articul;
         $data['name'] = $product->name;
-        // объект свойств в массив
-        $properties = (array) json_decode($product->data);
-        extract($properties);
-        $data['color'] = $color;
-        $data['size'] = $size;
+        $data['status'] = $product->status;
+        $data['data'] = json_decode($product->data);
 
         return view('edit-product', ['product' => $data]);
     }
 
+    // обновить данные в БД
     public function update(Request $request)
     {
         $data = $request->all();
@@ -137,14 +136,12 @@ class ProductController extends Controller
         }
 
         $product->name = $data['name'];
-        $product->data = json_encode(['color' => $data['color'], 'size' => $data['size']]);
+        $product->status = $data['status'];
+        $product->data = $data['data'];
         $isSaved = $product->save();
 
         if ($isSaved) {
-            return [
-                'result' => 1,
-                'row' => ['articul' => data['articul'], 'name' => data['name']],
-            ];
+            return ['result' => 1];
         } else {
             return ['result' => 0, 'description' => 'ошибка изменения данных'];
         }
