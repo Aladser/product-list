@@ -16,9 +16,9 @@
     </x-slot>
 
     <div class="bg-black-theme overflow-hidden pt-4 ps-2 w-200 pb-40">
-        <h2 class="font-semibold text-xl text-white leading-tight ps-3 pb-4 relative me-4">
+        <h2 class="font-semibold text-xl text-white leading-tight ps-3 pb-4 relative me-4 uppercase">
             {{$product['name']}}
-            <a href="{{route('product')}}"><input type="button" class='text-white absolute top-0 right-0'value="x"></a>
+            <a href="{{route('product')}}"><input type="button" class='text-gray-400 absolute top-0 right-0'value="x"></a>
         </h2>
         <table class='text-white'>
             <tr>

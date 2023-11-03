@@ -49,7 +49,7 @@ class ProductController extends Controller
         $data['id'] = $product->id;
         $data['articul'] = $product->articul;
         $data['name'] = $product->name;
-        $data['status'] = $product->status;
+        $data['status'] = $product->status === 'available' ? 'Доступен' : 'Недоступен';
         $data['data'] = json_decode($product->data);
 
         return view('show', ['product' => $data]);

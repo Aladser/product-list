@@ -18,7 +18,7 @@
     <div class="bg-black-theme overflow-hidden pt-4 ps-2 w-200">
         <h2 class="font-semibold text-xl text-white leading-tight pb-4 relative me-4">
             Добавить продукт
-            <a href="{{route('product')}}"><input type="button" class='text-white absolute top-0 right-0'value="x"></a>
+            <a href="{{route('product')}}"><input type="button" class='text-gray-400 absolute top-0 right-0'value="x"></a>
         </h2>
         <article  class='inline-block w-full'>
             <form class='form-new-product' data-type='add'>
