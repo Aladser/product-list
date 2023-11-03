@@ -28,7 +28,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = [];
-        foreach (Product::all() as $product) {
+        foreach (Product::orderBy('articul', 'asc')->get() as $product) {
             $products[] = [
                 'id' => $product->id,
                 'articul' => $product->articul,
