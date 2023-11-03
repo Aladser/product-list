@@ -20,7 +20,8 @@
                 <thead class='w-full text-xs uppercase border-b-2 border-gray-400'>
                     <tr class='text-gray-400 bg-theme'> 
                         <th class='p-3 w-1/4'>Артикул</th> 
-                        <th class='p-3'>Название</th> 
+                        <th class='p-3'>Название</th>
+                        <th class='p-3'>Статус</th> 
                         <th class='p-3'>Атрибуты</th>
                     </tr>
                 <thead>
@@ -37,7 +38,12 @@
                                 </div>
                             </td>
                             <td class='p-3 bg-white'>{{$product['name']}}</td>
-                            <td class='p-3 bg-white'>{{$product['data']}}</td>
+                            <td class='p-3 bg-white'>{{$product['status']}}</td>
+                            <td class='p-3 bg-white'>
+                                @foreach ($product['data'] as $key => $value)
+                                    {{$key}}: {{$value}}<br>
+                                @endforeach
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

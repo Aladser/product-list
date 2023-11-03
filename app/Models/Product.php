@@ -15,8 +15,8 @@ class Product extends Model
         'color' => 'array',
     ];
 
-    public static function activeProducts()
+    public static function availableProducts()
     {
-        return Product::where('status', 'available')->select('id', 'articul', 'name', 'data')->get();
+        return Product::where('status', 'available');
     }
 }

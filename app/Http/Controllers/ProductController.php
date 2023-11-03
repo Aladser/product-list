@@ -28,12 +28,13 @@ class ProductController extends Controller
     public function index()
     {
         $products = [];
-        foreach (Product::activeProducts() as $activeProduct) {
+        foreach (Product::all() as $product) {
             $products[] = [
-                'id' => $activeProduct->id,
-                'articul' => $activeProduct->articul,
-                'name' => $activeProduct->name,
-                'data' => $activeProduct->data,
+                'id' => $product->id,
+                'articul' => $product->articul,
+                'name' => $product->name,
+                'status' => $product->status == 'available' ? 'Доступен' : 'Недоступен',
+                'data' => json_decode($product->data),
             ];
         }
 
@@ -59,6 +60,7 @@ class ProductController extends Controller
             $product = new Product();
             $product->articul = $data['articul'];
             $product->name = $data['name'];
+            $product->status = $data['status'];
             $product->data = $data['data'];
             $isSaved = $product->save();
 
