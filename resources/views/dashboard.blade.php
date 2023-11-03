@@ -28,18 +28,7 @@
                 <tbody>
                     @foreach ($products as $product)
                         <tr class='table-product__tr border-b-2 border-gray-40 bg-white cursor-pointer' id="product-{{$product['id']}}">
-                            <td class='p-3 relative'>
-                                <span>{{$product['articul']}}</span>
-                                <div class='inline float-right'>
-                                    <a href="/product/{{$product['id']}}">
-                                        <button class='product__btn-edit opacity-50' title='Информация'>❕</button>
-                                    </a>
-                                    <a href="/product/edit/{{$product['id']}}">
-                                        <button class='product__btn-edit opacity-50' title='Редактировать'>✎</button>
-                                    </a>
-                                    <button class='product__btn-remove opacity-50' title='Удалить'>🗑</button>
-                                </div>
-                            </td>
+                            <td class='p-3 relative'>{{$product['articul']}}</td>
                             <td class='p-3'>{{$product['name']}}</td>
                             <td class='p-3'>{{$product['status']}}</td>
                             <td class='p-3'>

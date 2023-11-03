@@ -1,5 +1,8 @@
+// кнопка добавить аттрибут
 const addAttrBtn = document.querySelector(`.${formClass}__add-attr`);
+// кнопка секции атрибутов
 const attributesSection = document.querySelector(`.${formClass}__attributes`);
+// число атрибутов
 let attributeCount = document.querySelectorAll(
     `.${formClass}__attribute`
 ).length;
@@ -28,11 +31,10 @@ addAttrBtn.onclick = (e) => {
         });
 };
 
+// удалить атрибут
 document.querySelectorAll(`.${formClass}__btn-remove-attr`).forEach((btn) => {
     btn.onclick = removeAttr;
 });
-
-// удалить атрибут
 function removeAttr(e) {
     e.preventDefault();
     e.target.closest(`.${formClass}__attribute`).remove();
