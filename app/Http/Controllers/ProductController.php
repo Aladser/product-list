@@ -41,6 +41,20 @@ class ProductController extends Controller
         return view('dashboard', ['products' => $products]);
     }
 
+    // форма редактирования
+    public function show($id)
+    {
+        $product = Product::find($id);
+        $data = [];
+        $data['id'] = $product->id;
+        $data['articul'] = $product->articul;
+        $data['name'] = $product->name;
+        $data['status'] = $product->status;
+        $data['data'] = json_decode($product->data);
+
+        return view('show', ['product' => $data]);
+    }
+
     public function create()
     {
         return view('create-product');

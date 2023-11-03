@@ -17,3 +17,4 @@ Route::post('/product/update', [ProductController::class, 'update']);
 
 Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
 Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
