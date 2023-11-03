@@ -29,15 +29,11 @@ class ProductController extends Controller
     {
         $products = [];
         foreach (Product::activeProducts() as $activeProduct) {
-            $data = json_decode($activeProduct->data);
-            $color = $data->color;
-            $size = $data->size;
             $products[] = [
                 'id' => $activeProduct->id,
                 'articul' => $activeProduct->articul,
                 'name' => $activeProduct->name,
-                'color' => $color,
-                'size' => $size,
+                'data' => $activeProduct->data,
             ];
         }
 
@@ -63,7 +59,7 @@ class ProductController extends Controller
             $product = new Product();
             $product->articul = $data['articul'];
             $product->name = $data['name'];
-            $product->data = json_encode(['color' => $data['color'], 'size' => $data['size']]);
+            $product->data = $data['data'];
             $isSaved = $product->save();
 
             if ($isSaved) {
@@ -81,11 +77,10 @@ class ProductController extends Controller
                 return [
                     'result' => 1,
                     'row' => [
-                        'articul' => $data['articul'],
                         'name' => $data['name'],
-                        'color' => $data['color'],
-                        'size' => $data['size']],
-                    ];
+                        'articul' => $data['articul'],
+                    ],
+                ];
             } else {
                 return ['result' => 0, 'description' => 'серверная ошибка сохранения'];
             }
@@ -143,7 +138,14 @@ class ProductController extends Controller
         $product->data = json_encode(['color' => $data['color'], 'size' => $data['size']]);
         $isSaved = $product->save();
 
-        return ['result' => $isSaved ? 1 : 0];
+        if ($isSaved) {
+            return [
+                'result' => 1,
+                'row' => ['articul' => data['articul'], 'name' => data['name']],
+            ];
+        } else {
+            return ['result' => 0, 'description' => 'ошибка изменения данных'];
+        }
     }
 
     // валидация полей

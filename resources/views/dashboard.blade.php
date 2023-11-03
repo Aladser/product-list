@@ -21,8 +21,7 @@
                     <tr class='text-gray-400 bg-theme'> 
                         <th class='p-3 w-1/4'>Артикул</th> 
                         <th class='p-3'>Название</th> 
-                        <th class='p-3'>Цвет</th>
-                        <th class='p-3'>Размер</th>
+                        <th class='p-3'>Атрибуты</th>
                     </tr>
                 <thead>
                 <tbody>
@@ -38,8 +37,7 @@
                                 </div>
                             </td>
                             <td class='p-3 bg-white'>{{$product['name']}}</td>
-                            <td class='p-3 bg-white'>{{$product['color']}}</td>
-                            <td class='p-3 bg-white'>{{$product['size']}}</td>
+                            <td class='p-3 bg-white'>{{$product['data']}}</td>
                         </tr>
                     @endforeach
                 </tbody>

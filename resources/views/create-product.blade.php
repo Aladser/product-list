@@ -32,16 +32,12 @@
                     <option value="available">Доступен</option>
                     <option value="unavailable">Недоступен</option>
                 </select>
+                <p class='font-semibold text-base text-white leading-tight pb-4 relative me-4 mb-4'>Атрибуты</p>
 
-                <p class='font-semibold text-base text-white leading-tight pb-4 relative me-4'>Атрибуты</p>
-                <button class="text-sky-400 pb-4 text-xs">+ Добавить продукт</button>
-                <label for="form-new-product__color" class='block w-2/3 text-white text-xs pb-2'>Цвет:</label>
-                <input type="text" class='w-2/3 rounded mb-4' id='form-new-product__color'name='color'><br>
+                <section class='form-new-product__attributes w-full'></section>
+                <button class="form-new-product__add-attr text-sky-400 text-xs border-b border-dashed border-sky-400 mb-8">+ Добавить атрибут</button>
 
-                <label for="size" id='form-new-product__size' class='block w-2/3 text-white text-xs pb-2'>Размер:</label>
-                <input type="text" class='w-2/3 rounded mb-4' id='form-new-product__size' name='size'>
-
-                <div class='pb-2 text-xl'>
+                <div class='pb-2 text-xl mb-6'>
                     <input type="submit" class='rounded bg-sky-500 text-white px-10 py-2 text-xs font-medium 
                     leading-normal transition duration-150 ease-in-out hover:bg-opacity-70 hover:bg-sky-400
                     focus:border-neutral-800 focus:text-neutral-800 focus:outline-none focus:ring-0 
