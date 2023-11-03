@@ -31,6 +31,9 @@
                             <td class='p-3 relative bg-white'>
                                 <span>{{$product['articul']}}</span>
                                 <div class='inline float-right'>
+                                    <a href="/product/{{$product['id']}}">
+                                        <button class='product__btn-edit opacity-50' title='Информация'>❕</button>
+                                    </a>
                                     <a href="/product/edit/{{$product['id']}}">
                                         <button class='product__btn-edit opacity-50' title='Редактировать'>✎</button>
                                     </a>
