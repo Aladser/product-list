@@ -80,16 +80,15 @@ class ProductController extends Controller
 
             if ($isSaved) {
                 // отправка письма
-                /*
                 $message = "
                     <body>
                         <h4>Появился новый продукт</h4>
-                        <p>Артикул:{$data['articul']}</p>
-                        <p>Название:{$data['name']}</p></p>
+                        <p>Артикул: <span style='font-weight:bold'>{$data['articul']}</span></p>
+                        <p>Название:<span style='font-weight:bold'>{$data['name']}</span></p>
                     </body>
                 ";
                 $this->eMailSender->send('Магазин: новый продукт', $message, config('products.email'));
-                */
+
                 return [
                     'result' => 1,
                     'row' => [
