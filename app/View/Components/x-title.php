@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class x-title extends Component
+class XTitle extends Component
 {
     /**
      * Create a new component instance.
@@ -13,7 +13,6 @@ class x-title extends Component
      */
     public function __construct()
     {
-        //
     }
 
     /**
