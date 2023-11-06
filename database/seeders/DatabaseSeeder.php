@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@mail.ru',
             'password' => '$2y$10$1qkTTjdEGGMpSpVgkr0BkOc/em3fMqbNoXMGJ2HqU6nIn23JxwcGG',
-            'is_admin' => 'true',
+            'is_admin' => 1,
         ]);
         User::create([
             'name' => 'user',
