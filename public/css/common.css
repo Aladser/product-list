@@ -12,7 +12,7 @@
 }
 
 .w-theme {
-    width: 10%;
+    width: 200px;
 }
 
 .w-200 {
@@ -21,4 +21,10 @@
 
 .w-30percents {
     width: 30%;
+}
+
+@media (max-width:800px) {
+    .panel-firmware {
+        display: none;
+    }
 }

@@ -12,3 +12,17 @@
 .table-product__tr--active {
     background-color: #ddd;
 }
+
+.section-buttons__btn {
+    width: 10rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+@media (max-width:600px) {
+    .section-buttons__btn {
+        width: auto;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}

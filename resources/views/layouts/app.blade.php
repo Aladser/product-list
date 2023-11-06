@@ -24,11 +24,10 @@
     </head>
     <body class="font-sans antialiased h-screen bg-theme">
         <div class='flex'>
-            <div class='w-theme h-screen bg-black-theme'>
+            <div class='panel-firmware w-theme h-screen bg-black-theme'>
                 <a href="{{route('main')}}" title='На домашнюю страницу'>
-                    <div>
-                        <div class='container-logo flex justify-center items-center'>
-                            <svg width="53" height="23" viewBox="0 0 53 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <div class='container-logo flex justify-center items-center border border-white'>
+                            <svg width="60%" height="60%" viewBox="0 0 53 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M22.39 22.8009L24.7961 9.58182C24.9198 9.21567 25.1601 8.92138 25.5257 8.70237C25.9639 8.4577 26.4956 8.32596 27.121 8.30885L30.633 8.30542L30.4687 9.19172L27.9919 22.8027H22.39V22.8009Z" fill="url(#paint0_linear_3_209)"/>
                                 <path d="M39.406 8.2915L36.7631 22.8007H31.2301L33.8694 8.2915H39.406Z" fill="url(#paint1_linear_3_209)"/>
                                 <path d="M3.12158 5.17404H8.66166V5.17062C8.66166 5.17062 11.9952 5.15522 13.2707 5.15522C15.88 5.15522 17.4187 6.85937 17.0707 9.4481C16.758 11.7699 14.6346 13.1473 12.3592 13.1644C8.40197 13.1952 7.86315 18.3247 12.0023 18.3247C13.9897 18.3247 16.4542 18.1382 18.8373 16.328C21.4961 14.309 22.1497 12.1994 22.6426 9.47205C22.9482 7.7833 22.5631 4.64363 20.9237 2.79063C19.2843 0.939334 17.0672 0.0136882 14.2706 0.0136882C11.4741 0.0136882 4.09145 0 4.09145 0C4.09145 0 3.61093 2.57846 3.12158 5.17404Z" fill="url(#paint2_linear_3_209)"/>
@@ -86,7 +85,6 @@
                         <div class='inline float-right text-white w-1/2 pt-2 text-w-theme'>
                             Enterprise Resource Planning
                         </div>
-                    </div>
                 </a>
                 <p class='text-gray-300 pt-16 ps-4 text-sm'>Продукты</p>
             </div>
