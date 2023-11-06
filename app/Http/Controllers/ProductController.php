@@ -38,7 +38,7 @@ class ProductController extends Controller
             ];
         }
 
-        return view('dashboard', ['products' => $products]);
+        return view('products', ['products' => $products]);
     }
 
     // форма редактирования

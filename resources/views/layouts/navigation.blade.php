@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:flex">
-                    <x-nav-link :href="route('product')" :active="request()->routeIs('product')">ПРОДУКТЫ</x-nav-link>
+                    <x-nav-link :href="url('/product')" :active="request()->routeIs('product')">ПРОДУКТЫ</x-nav-link>
                 </div>
             </div>
 
