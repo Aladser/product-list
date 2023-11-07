@@ -1,0 +1,47 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: admin
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: travellist
+    container_name: productlist-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - lighnet
+
+  db:
+    image: postgres
+    container_name: productlist-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - lighnet
+
+  nginx:
+    image: nginx:alpine
+    container_name: productlist-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - lighnet
+
+networks:
+  lighnet:
+    driver: bridge
