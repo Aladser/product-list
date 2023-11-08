@@ -82,7 +82,6 @@ class ProductController extends Controller
                 // отправка письма
                 $message = "
                     <body>
-                        <h4>Появился новый продукт</h4>
                         <p>Артикул: <span style='font-weight:bold'>{$data['articul']}</span></p>
                         <p>Название:<span style='font-weight:bold'>{$data['name']}</span></p>
                     </body>
