@@ -26,7 +26,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       
     volumes:
-      - ./docker-compose/pgsql:/var/lib/postgresql
+      - ./docker-compose/pgsql:/docker-entrypoint-initdb.d/
     networks:
       - lighnet
 
