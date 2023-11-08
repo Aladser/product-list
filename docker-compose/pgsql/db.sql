@@ -59,6 +59,44 @@ ALTER SEQUENCE public.failed_jobs_id_seq OWNED BY public.failed_jobs.id;
 
 
 --
+-- Name: jobs; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.jobs (
+    id bigint NOT NULL,
+    queue character varying(255) NOT NULL,
+    payload text NOT NULL,
+    attempts smallint NOT NULL,
+    reserved_at integer,
+    available_at integer NOT NULL,
+    created_at integer NOT NULL
+);
+
+
+ALTER TABLE public.jobs OWNER TO admin;
+
+--
+-- Name: jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.jobs_id_seq OWNER TO admin;
+
+--
+-- Name: jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.jobs_id_seq OWNED BY public.jobs.id;
+
+
+--
 -- Name: migrations; Type: TABLE; Schema: public; Owner: admin
 --
 
@@ -242,6 +280,13 @@ ALTER TABLE ONLY public.failed_jobs ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: jobs id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.jobs ALTER COLUMN id SET DEFAULT nextval('public.jobs_id_seq'::regclass);
+
+
+--
 -- Name: migrations id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -278,16 +323,25 @@ COPY public.failed_jobs (id, uuid, connection, queue, payload, exception, failed
 
 
 --
+-- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.jobs (id, queue, payload, attempts, reserved_at, available_at, created_at) FROM stdin;
+\.
+
+
+--
 -- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 COPY public.migrations (id, migration, batch) FROM stdin;
 60	2014_10_12_100000_create_password_reset_tokens_table	4
-63	2014_10_12_000000_create_users_table	5
-64	2014_10_12_100000_create_password_resets_table	5
-65	2019_08_19_000000_create_failed_jobs_table	5
-66	2019_12_14_000001_create_personal_access_tokens_table	5
-67	2023_10_31_094848_create_products_table	5
+93	2014_10_12_000000_create_users_table	5
+94	2014_10_12_100000_create_password_resets_table	5
+95	2019_08_19_000000_create_failed_jobs_table	5
+96	2019_12_14_000001_create_personal_access_tokens_table	5
+97	2023_10_31_094848_create_products_table	5
+98	2023_11_08_092331_create_jobs_table	5
 \.
 
 
@@ -320,9 +374,11 @@ COPY public.personal_access_tokens (id, tokenable_type, tokenable_id, name, toke
 --
 
 COPY public.products (id, articul, name, status, data, created_at) FROM stdin;
-1	A1	Зефир	available	{"size": 10, "color": "red"}	2023-11-06 08:36:41
-2	B1	Мармелад	available	{"size": 20, "color": "blue"}	2023-11-06 08:36:41
-3	C1	Шоколад	unavailable	{"size": 30, "color": "green"}	2023-11-06 08:36:41
+1	A1	Зефир	available	{"size": 10, "color": "red"}	2023-11-08 18:23:35
+2	B1	Мармелад	available	{"size": 20, "color": "blue"}	2023-11-08 18:23:35
+3	C1	Шоколад	unavailable	{"size": 30, "color": "green"}	2023-11-08 18:23:35
+19	Q1	очередь	available	{}	2023-11-08 20:06:25
+20	Q2	очередь	available	{}	2023-11-08 20:07:23
 \.
 
 
@@ -333,7 +389,6 @@ COPY public.products (id, articul, name, status, data, created_at) FROM stdin;
 COPY public.users (id, name, email, password, is_admin, remember_token) FROM stdin;
 1	admin	admin@mail.ru	$2y$10$1qkTTjdEGGMpSpVgkr0BkOc/em3fMqbNoXMGJ2HqU6nIn23JxwcGG	t	\N
 2	user	user@mail.ru	$2y$10$1qkTTjdEGGMpSpVgkr0BkOc/em3fMqbNoXMGJ2HqU6nIn23JxwcGG	f	\N
-3	test	test@mail.ru	$2y$12$tFKfuq9wJcAsFLYn5M5rxuj6nNgKfBdRttWbQh7XmQ0GFTfB7v5Em	f	\N
 \.
 
 
@@ -345,10 +400,17 @@ SELECT pg_catalog.setval('public.failed_jobs_id_seq', 1, false);
 
 
 --
+-- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.jobs_id_seq', 9, true);
+
+
+--
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.migrations_id_seq', 67, true);
+SELECT pg_catalog.setval('public.migrations_id_seq', 98, true);
 
 
 --
@@ -362,14 +424,14 @@ SELECT pg_catalog.setval('public.personal_access_tokens_id_seq', 1, false);
 -- Name: products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.products_id_seq', 4, true);
+SELECT pg_catalog.setval('public.products_id_seq', 20, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 3, true);
+SELECT pg_catalog.setval('public.users_id_seq', 2, true);
 
 
 --
@@ -386,6 +448,14 @@ ALTER TABLE ONLY public.failed_jobs
 
 ALTER TABLE ONLY public.failed_jobs
     ADD CONSTRAINT failed_jobs_uuid_unique UNIQUE (uuid);
+
+
+--
+-- Name: jobs jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.jobs
+    ADD CONSTRAINT jobs_pkey PRIMARY KEY (id);
 
 
 --
@@ -450,6 +520,13 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: jobs_queue_index; Type: INDEX; Schema: public; Owner: admin
+--
+
+CREATE INDEX jobs_queue_index ON public.jobs USING btree (queue);
 
 
 --
