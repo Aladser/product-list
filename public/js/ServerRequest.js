@@ -35,7 +35,7 @@ class ServerRequest {
                 if (errorPrg) {
                     errorPrg.textContent = "Серверная ошибка. Подробности в консоли браузера";
                 }
-                console.log(response);
+                console.log(response.text());
         }
     }
 }

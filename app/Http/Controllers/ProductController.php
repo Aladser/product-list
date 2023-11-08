@@ -2,29 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\EMailSender;
+use App\Jobs\SendEmailJob;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    private $eMailSender;
-
-    public function __construct()
-    {
-        // $smtpSrv, $username, $password, $smtpSecure, $port, $emailSender, $emailSenderName
-        $this->eMailSender = new EMailSender(
-            env('MAIL_MAILER'),
-            env('MAIL_USERNAME'),
-            env('MAIL_PASSWORD'),
-            env('MAIL_ENCRYPTION'),
-            env('MAIL_PORT'),
-            env('MAIL_FROM_ADDRESS'),
-            env('MAIL_FROM_NAME')
-        );
-    }
-
     public function index()
     {
         $products = [];
@@ -80,13 +64,7 @@ class ProductController extends Controller
 
             if ($isSaved) {
                 // отправка письма
-                $message = "
-                    <body>
-                        <p>Артикул: <span style='font-weight:bold'>{$data['articul']}</span></p>
-                        <p>Название:<span style='font-weight:bold'>{$data['name']}</span></p>
-                    </body>
-                ";
-                $this->eMailSender->send('Магазин: новый продукт', $message, config('products.email'));
+                SendEmailJob::dispatch($data['articul'], $data['name']);
 
                 return [
                     'result' => 1,
