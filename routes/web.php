@@ -2,9 +2,14 @@
 
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Product;
 
 require __DIR__.'/auth.php';
-Route::get('/', fn () => view('welcome'))->name('main');
+//Route::get('/', fn () => view('welcome'))->name('main');
+
+Route::get('/', function() {
+    return view('welcome');
+})->name('main');
 
 // страница товаров
 Route::get('/product', [ProductController::class, 'index'])->middleware(['auth'])->name('product');
