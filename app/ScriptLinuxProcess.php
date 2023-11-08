@@ -42,7 +42,6 @@ class ScriptLinuxProcess
     {
         $this->clearLogs();
         exec("php $this->processFile > $this->processLogFile &");
-        dd("php $this->processFile > $this->processLogFile &");
     }
 
     /** убивает процесс */
