@@ -8,12 +8,11 @@
         @yield('meta')
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        @vite('resources/css/app.css')
         <link rel="stylesheet" href="{{ asset('css/common.css') }}">
         <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="https://cdn.tailwindcss.com"></script>
         @yield('js')
     </head>
     <body class="font-sans antialiased h-screen bg-theme">
