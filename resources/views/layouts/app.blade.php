@@ -20,9 +20,7 @@
             <div class='panel-firmware w-theme h-screen bg-black-theme'>
                 <a href="{{route('main')}}" title='На домашнюю страницу'>
                         <div class='container-logo flex justify-center items-center'>
-                            <div class='w-2/3 h-2/3'>
-                                <x-logo></x-logo>
-                            </div>
+                            <div class='w-2/3 h-2/3'><x-logo></x-logo></div>
                         </div>
                         <div class='inline float-right text-white w-1/2 pt-2 text-w-theme'>
                             Enterprise Resource Planning
