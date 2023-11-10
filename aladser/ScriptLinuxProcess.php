@@ -13,8 +13,6 @@ class ScriptLinuxProcess
     private string $processLogFile;
     /** путь к файлу парсинга процессов Linux */
     private string $pidsParseFile;
-    /** PID процесса */
-    private $PID;
 
     public function __construct(
         string $processName,
@@ -38,26 +36,27 @@ class ScriptLinuxProcess
     }
 
     /** создает процесс */
-    public function run()
+    public function run(): void
     {
         $this->clearLogs();
         exec("php $this->processFile > $this->processLogFile &");
     }
 
     /** убивает процесс */
-    public function kill()
+    public function kill(): void
     {
         $this->clearLogs();
         exec("pkill -f {$this->processName}");
     }
 
-    /** очистить логи вебсокета
-     * $isAll true - все логи.
+    /** очистить файлы логов.
+     *
+     * @param mixed $bothFiles true - оба файла
      */
-    public function clearLogs($isAll = true)
+    public function clearLogs($bothFiles = true): void
     {
         file_put_contents($this->pidsParseFile, '');
-        if ($isAll) {
+        if ($bothFiles) {
             file_put_contents($this->processLogFile, '');
         }
     }
