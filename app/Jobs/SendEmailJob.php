@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\EMailSender;
+use Aladser\EMailSender;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -17,35 +17,37 @@ class SendEmailJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    private $articul;
-    private $name;
+    private $title;
+    private $message;
+    private $receiver;
 
-    public function __construct($articul, $name)
+    /** Отправка писем
+     *
+     * @param mixed $title    заголовок письма
+     * @param mixed $message  сообщение
+     * @param mixed $receiver получатель
+     *
+     * @return void
+     */
+    public function __construct($title, $message, $receiver)
     {
-        $this->articul = $articul;
-        $this->name = $name;
+        $this->title = $title;
+        $this->message = $message;
+        $this->receiver = $receiver;
     }
 
     public function handle(): void
     {
-        // $smtpSrv, $username, $password, $smtpSecure, $port, $emailSender, $emailSenderName
         $eMailSender = new EMailSender(
-            env('MAIL_MAILER'),
-            env('MAIL_USERNAME'),
-            env('MAIL_PASSWORD'),
-            env('MAIL_ENCRYPTION'),
-            env('MAIL_PORT'),
-            env('MAIL_FROM_ADDRESS'),
-            env('MAIL_FROM_NAME')
+            env('MAIL_MAILER'),       // smtp сервер
+            env('MAIL_USERNAME'),     // учетная запись администратора для почты
+            env('MAIL_PASSWORD'),     // пароль учтеки администратора для почты
+            env('MAIL_ENCRYPTION'),   // тип шифрования
+            env('MAIL_PORT'),         // порт почты
+            env('MAIL_FROM_ADDRESS'), // адрес отправителя
+            env('MAIL_FROM_NAME')     // имя отправителя
         );
 
-        $title = 'Магазин: новый продукт';
-        $message = "
-            <body>
-                <p>Артикул: <span style='font-weight:bold'>{$this->articul}</span></p>
-                <p>Название:<span style='font-weight:bold'>{$this->name}</span></p>
-            </body>
-        ";
-        $eMailSender->send($title, $message, config('products.email'));
+        $eMailSender->send($this->title, $this->message, $this->receiver);
     }
 }

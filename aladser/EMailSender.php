@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Aladser;
 
 use PHPMailer\PHPMailer\PHPMailer;
 

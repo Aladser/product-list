@@ -64,7 +64,14 @@ class ProductController extends Controller
 
             if ($isSaved) {
                 // отправка письма
-                SendEmailJob::dispatch($data['articul'], $data['name']);
+                $title = 'Магазин: новый продукт';
+                $message = "
+                    <div>
+                        <p>Артикул: <span style='font-weight:bold'>{$product->articul}</span></p>
+                        <p>Название:<span style='font-weight:bold'>{$product->name}</span></p>
+                    </div>
+                ";
+                SendEmailJob::dispatch($title, $message, config('products.email'));
 
                 return [
                     'result' => 1,
