@@ -39,12 +39,13 @@ class SendEmailJob implements ShouldQueue
             env('MAIL_FROM_NAME')
         );
 
+        $title = 'Магазин: новый продукт';
         $message = "
             <body>
                 <p>Артикул: <span style='font-weight:bold'>{$this->articul}</span></p>
                 <p>Название:<span style='font-weight:bold'>{$this->name}</span></p>
             </body>
         ";
-        $eMailSender->send('Магазин: новый продукт', $message, config('products.email'));
+        $eMailSender->send($title, $message, config('products.email'));
     }
 }
