@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendEmailJob;
+use App\Mail\NewProductMail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ProductController extends Controller
 {
@@ -63,15 +65,8 @@ class ProductController extends Controller
             $isSaved = $product->save();
 
             if ($isSaved) {
-                // отправка письма
-                $title = 'Магазин: новый продукт';
-                $message = "
-                    <div>
-                        <p>Артикул: <span style='font-weight:bold'>{$product->articul}</span></p>
-                        <p>Название:<span style='font-weight:bold'>{$product->name}</span></p>
-                    </div>
-                ";
-                SendEmailJob::dispatch($title, $message, config('products.email'));
+                // SendEmailJob::dispatch($data['articul'], $data['name']);
+                Mail::to(config('products.email'))->send(new NewProductMail($data['articul'], $data['name']));
 
                 return [
                     'result' => 1,

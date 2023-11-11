@@ -2,12 +2,13 @@
 
 namespace App\Jobs;
 
-use Aladser\EMailSender;
+use App\Mail\NewProductMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
 // Отправка писем
 class SendEmailJob implements ShouldQueue
@@ -17,37 +18,21 @@ class SendEmailJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    private $title;
-    private $message;
-    private $receiver;
+    private $articul;
+    private $name;
 
     /** Отправка писем
      *
-     * @param mixed $title    заголовок письма
-     * @param mixed $message  сообщение
-     * @param mixed $receiver получатель
-     *
      * @return void
      */
-    public function __construct($title, $message, $receiver)
+    public function __construct($articul, $name)
     {
-        $this->title = $title;
-        $this->message = $message;
-        $this->receiver = $receiver;
+        $this->articul = $articul;
+        $this->name = $name;
     }
 
     public function handle(): void
     {
-        $eMailSender = new EMailSender(
-            env('MAIL_MAILER'),       // smtp сервер
-            env('MAIL_USERNAME'),     // учетная запись администратора для почты
-            env('MAIL_PASSWORD'),     // пароль учтеки администратора для почты
-            env('MAIL_ENCRYPTION'),   // тип шифрования
-            env('MAIL_PORT'),         // порт почты
-            env('MAIL_FROM_ADDRESS'), // адрес отправителя
-            env('MAIL_FROM_NAME')     // имя отправителя
-        );
-
-        $eMailSender->send($this->title, $this->message, $this->receiver);
+        Mail::to(config('products.email'))->send(new NewProductMail($this->articul, $this->name));
     }
 }
