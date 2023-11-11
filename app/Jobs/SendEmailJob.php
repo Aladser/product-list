@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Mail\NewProductMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -18,21 +17,17 @@ class SendEmailJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    private $articul;
-    private $name;
+    private $mail;
+    private $receiver;
 
-    /** Отправка писем
-     *
-     * @return void
-     */
-    public function __construct($articul, $name)
+    public function __construct($mail, $receiver)
     {
-        $this->articul = $articul;
-        $this->name = $name;
+        $this->mail = $mail;
+        $this->receiver = $receiver;
     }
 
     public function handle(): void
     {
-        Mail::to(config('products.email'))->send(new NewProductMail($this->articul, $this->name));
+        Mail::to($this->receiver)->send($this->mail);
     }
 }

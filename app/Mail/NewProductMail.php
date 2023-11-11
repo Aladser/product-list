@@ -8,23 +8,20 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
+// отправка писем о новом товаре
 class NewProductMail extends Mailable
 {
     use Queueable;
     use SerializesModels;
-    private $articul;
-    private $name;
 
-    public function __construct($articul, $name)
+    public function __construct(public string $articul, public string $productName)
     {
-        $this->articul = $articul;
-        $this->name = $name;
     }
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Склад: новый товар',
+            subject: "env('APP_NAME'): новый товар",
         );
     }
 
@@ -32,10 +29,6 @@ class NewProductMail extends Mailable
     {
         return new Content(
             view: 'letter',
-            with: [
-                'articul' => $this->articul,
-                'name' => $this->name,
-            ],
         );
     }
 

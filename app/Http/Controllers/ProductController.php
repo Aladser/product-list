@@ -7,7 +7,6 @@ use App\Mail\NewProductMail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 
 class ProductController extends Controller
 {
@@ -65,8 +64,9 @@ class ProductController extends Controller
             $isSaved = $product->save();
 
             if ($isSaved) {
-                // SendEmailJob::dispatch($data['articul'], $data['name']);
-                Mail::to(config('products.email'))->send(new NewProductMail($data['articul'], $data['name']));
+                // отправка письма
+                $mail = new NewProductMail($data['articul'], $data['name']);
+                SendEmailJob::dispatch($mail, config('products.email'));
 
                 return [
                     'result' => 1,
