@@ -21,7 +21,7 @@ class NewProductMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: "env('APP_NAME'): новый товар",
+            subject: env('APP_NAME').': новый товар',
         );
     }
 
