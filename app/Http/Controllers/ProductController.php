@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendEmailJob;
+use App\Mail\NewProductMail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,8 @@ class ProductController extends Controller
 
             if ($isSaved) {
                 // отправка письма
-                SendEmailJob::dispatch($data['articul'], $data['name']);
+                $mail = new NewProductMail($data['articul'], $data['name']);
+                SendEmailJob::dispatch($mail, config('products.email'));
 
                 return [
                     'result' => 1,

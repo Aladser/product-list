@@ -2,12 +2,12 @@
 
 namespace App\Jobs;
 
-use App\EMailSender;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
 // Отправка писем
 class SendEmailJob implements ShouldQueue
@@ -17,34 +17,17 @@ class SendEmailJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    private $articul;
-    private $name;
+    private $mail;
+    private $receiver;
 
-    public function __construct($articul, $name)
+    public function __construct($mail, $receiver)
     {
-        $this->articul = $articul;
-        $this->name = $name;
+        $this->mail = $mail;
+        $this->receiver = $receiver;
     }
 
     public function handle(): void
     {
-        // $smtpSrv, $username, $password, $smtpSecure, $port, $emailSender, $emailSenderName
-        $eMailSender = new EMailSender(
-            env('MAIL_MAILER'),
-            env('MAIL_USERNAME'),
-            env('MAIL_PASSWORD'),
-            env('MAIL_ENCRYPTION'),
-            env('MAIL_PORT'),
-            env('MAIL_FROM_ADDRESS'),
-            env('MAIL_FROM_NAME')
-        );
-
-        $message = "
-            <body>
-                <p>Артикул: <span style='font-weight:bold'>{$this->articul}</span></p>
-                <p>Название:<span style='font-weight:bold'>{$this->name}</span></p>
-            </body>
-        ";
-        $eMailSender->send('Магазин: новый продукт', $message, config('products.email'));
+        Mail::to($this->receiver)->send($this->mail);
     }
 }
