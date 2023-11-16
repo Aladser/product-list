@@ -3,13 +3,13 @@ class ProductClientController extends ClientController {
     constructor(URL, table, msgPrg, form = null, formClass) {
         super(URL, table, msgPrg, form);
         this.formClass = formClass;
+        //let type = form.getAttribute("data-type");
     }
 
     
     // добавить запись в БД
     add(form, event) {
         event.preventDefault();
-        let type = form.getAttribute("data-type");
 
         // атрибуты
         let data = new Map();
@@ -34,10 +34,7 @@ class ProductClientController extends ClientController {
         // действия после успешного добавления данных в БД
         let process = (data) => {
             if (data.result == 1) {
-                this.msgElement.textContent =
-                    type == "add"
-                        ? `${data.row.articul}: ${data.row.name} добавлен`
-                        : "данные обновлены";
+                this.msgElement.textContent =`${data.row.articul}: ${data.row.name} добавлен`;
             } else {
                 this.msgElement.textContent = data.description;
             }
