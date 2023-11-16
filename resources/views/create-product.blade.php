@@ -9,7 +9,6 @@
     
     @section('js')
         <script src="/js/ServerRequest.js" defer></script>
-        <script src="/js/ClientController.js" defer></script>
         <script src="/js/ProductClientController.js" defer></script>
         <script src="/js/create-product.js" defer></script>
         <script src="/js/attributes.js" defer></script>
