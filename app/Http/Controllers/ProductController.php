@@ -115,7 +115,6 @@ class ProductController extends Controller
 
     public function update(Request $request, string $id)
     {
-        return $request->all();
         $data = $request->all();
 
         $validateResult = $this->validateFields($data);

@@ -91,9 +91,6 @@ class ClientController {
         );
     }
 
-    update() {
-        
-    }
     processData(row, form) {
         alert("нет реализации метода processData класса TableFrontController");
     }

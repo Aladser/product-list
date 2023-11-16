@@ -8,9 +8,8 @@
   GET|HEAD        product/{product}/edit ...product.edit › ProductController@edit
 */
 
-
 const formClass = 'form-edit-product';
-const tableError = document.querySelector("#table-error");
+const msgElement = document.querySelector("#table-error");
 const form = document.querySelector(".form-edit-product");
 const id = form.getAttribute('data-id');
 const csrfToken = document.querySelector('meta[name="csrf-token"]');
@@ -22,6 +21,7 @@ let headers = {
 form.addEventListener('submit', function(event) {
     event.preventDefault();
     let data = {};
+    data.id = id;
     // артикул
     if (form.articul) {
         data.articul = form.articul
@@ -53,14 +53,21 @@ form.addEventListener('submit', function(event) {
     attr = JSON.stringify(Object.fromEntries(attrMap));
     data.data = attr;
     
-    fetch(`/product/${id}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            "X-CSRF-TOKEN": csrfToken.getAttribute("content"),
-        },
-        body: JSON.stringify(data)
-    }).then(r => r.text()).then(data => {
-        console.log(data);
-    });
+    // запрос на сервер
+    ServerRequest.execute(
+        `/product/${id}`,
+        process,
+        "patch",
+        msgElement,
+        JSON.stringify(data),
+        headers
+    );
 });
+// обработка результата запроса
+let process = (data) => {
+    if (data.result == 1) {
+        msgElement.textContent = 'данные обновлены';
+    } else {
+        msgElement.textContent = data.description;
+    }
+};
