@@ -1,1 +1,1 @@
-<a href="{{route('product')}}"><input type="button" class='cursor-pointer text-gray-400 absolute top-0 right-0'value="x" title=Закрыть'></a>
+<a href="{{route('product.index')}}"><input type="button" class='cursor-pointer text-gray-400 absolute top-0 right-0'value="x" title=Закрыть'></a>
