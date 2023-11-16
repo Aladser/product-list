@@ -27,7 +27,7 @@
                     <input type="text" class='w-2/3 rounded mb-4' id='form-edit-product__articul' name='articul' required value="{{$product['articul']}}"><br>
                 @else
                     <p class='iblock w-2/3 text-white text-xs pb-2'>Артикул:</p>
-                    <p class='w-2/3 rounded mb-4 inline-block w-1/2 border border-gray-200 ps-4 p-2 text-start bg-gray-200'>{{$product['articul']}}</p><br>
+                    <p class='w-2/3 rounded mb-4 inline-block w-1/2 border border-gray-200 ps-4 p-2 text-start bg-gray-200' id='form-edit-product'>{{$product['articul']}}</p><br>
                 @endif
 
                 <label for="form-edit-product__name" class='block w-2/3 text-white text-xs pb-2'>Имя:</label>
