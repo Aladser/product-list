@@ -1,10 +1,11 @@
 /** Фронт-контроллер таблицы */
 class ProductClientController {
-    constructor(URL, table, msgElement, form = null, formClass) {
+    constructor(URL, table, msgElement, addForm = null, editForm = null) {
         this.URL = URL;
         this.table = table;
         this.msgElement = msgElement;
-        this.form = form;
+        this.addForm = addForm;
+        this.editForm = editForm;
         this.csrfToken = document.querySelector('meta[name="csrf-token"]');
 
         // таблица
@@ -20,15 +21,18 @@ class ProductClientController {
                 });
         }
 
-        // форма добавления нового элемента
-        if (this.form) {
-            this.form.onsubmit = (event) => this.add(form, event);
+        // форма добавления нового товара
+        if (this.addForm) {
+            this.addForm.onsubmit = (event) => this.add(addForm, event);
+            this.addFormId = addForm.id;
         }
-        this.formClass = formClass;
-        //let type = form.getAttribute("data-type");
+        // форма изменения товара
+        if (this.editForm) {
+            this.editForm.onsubmit = (event) => this.add(editForm, event);
+            this.editFormId = editForm.id;
+        }
     }
 
-    
     // добавить запись в БД
     add(form, event) {
         event.preventDefault();
@@ -36,15 +40,15 @@ class ProductClientController {
         // атрибуты
         let data = new Map();
         let attributesElements = document.querySelectorAll(
-            `.${this.formClass}__attribute`
+            `.${this.addFormId}__attribute`
         );
         if (attributesElements.length > 0) {
             attributesElements.forEach((element) => {
                 let name = element.querySelector(
-                    `.${this.formClass}__attr-name`
+                    `.${this.addFormId}__attr-name`
                 ).value;
                 let value = element.querySelector(
-                    `.${this.formClass}__attr-value`
+                    `.${this.addFormId}__attr-value`
                 ).value;
                 if (name !== "" && value !== "") {
                     data.set(name, value);
@@ -83,6 +87,10 @@ class ProductClientController {
             formData,
             headers
         );
+    }
+
+    update(form, event) {
+
     }
 
     remove(row) {

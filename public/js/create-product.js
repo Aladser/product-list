@@ -9,6 +9,5 @@ const tableController = new ProductClientController(
     "/product",
     null,
     document.querySelector("#table-error"),
-    document.querySelector(`.${formClass}`),
-    formClass
+    document.querySelector(`.${formClass}`)
 );

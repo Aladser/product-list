@@ -19,7 +19,7 @@
             Добавить продукт<x-btn-close></x-btn-close>
         </h2>
         <article  class='inline-block w-full'>
-            <form class='form-new-product' data-type='add'>
+            <form class='form-new-product' id='form-new-product' data-type='add'>
                 <label for="form-new-product__articul" class='block w-2/3 text-white text-xs pb-2'>Артикул:</label>
                 <input type="text" class='w-2/3 rounded mb-4' id='form-new-product__articul' name='articul' required><br>
 
