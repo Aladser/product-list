@@ -1,10 +1,6 @@
 const formClass = 'form-new-product';
 
-/** Клиентский табличный контроллер
- * @param {*} URL серверного контроллера
- * @param {*} msgElement инфоэлемент
- * @param {*} form форма добавления
- */
+/** Клиентский табличный контроллер */
 const tableController = new ProductClientController(
     "/product",
     null,

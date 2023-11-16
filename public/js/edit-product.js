@@ -1,5 +1,6 @@
 const formClass = 'form-edit-product';
 
+/** Клиентский табличный контроллер */
 const tableController = new ProductClientController(
     "/product",
     null,
