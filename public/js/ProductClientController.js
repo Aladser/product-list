@@ -51,27 +51,6 @@ class ProductClientController {
     // добавить новый товар в БД
     add(event) {
         event.preventDefault();
-
-        // атрибуты
-        let data = new Map();
-        let attributesElements = document.querySelectorAll(
-            `.${this.addFormId}__attribute`
-        );
-        if (attributesElements.length > 0) {
-            attributesElements.forEach((element) => {
-                let name = element.querySelector(
-                    `.${this.addFormId}__attr-name`
-                ).value;
-                let value = element.querySelector(
-                    `.${this.addFormId}__attr-value`
-                ).value;
-                if (name !== "" && value !== "") {
-                    data.set(name, value);
-                }
-            });
-        }
-        data = JSON.stringify(Object.fromEntries(data));
-
         // действия после успешного добавления данных в БД
         let process = (data) => {
             if (data.result == 1) {
@@ -80,19 +59,12 @@ class ProductClientController {
                 this.msgElement.textContent = data.description;
             }
         };
-
         let formData = new FormData(this.addForm);
-        formData.set("data", data);
-        // id, если редактирование
-        let idAttr = this.addForm.getAttribute("data-id");
-        if (idAttr) {
-            formData.set("id", idAttr);
-        }
+        formData.set("data", this.getAttributesFromForm(this.addForm));
         // заголовки
         let headers = {
             "X-CSRF-TOKEN": this.csrfToken.getAttribute("content"),
         };
-
         // запрос на сервер
         ServerRequest.execute(
             this.URL,
@@ -108,9 +80,8 @@ class ProductClientController {
     update(event) {
         event.preventDefault();
 
-        let id = this.editForm.getAttribute('data-id');
         let data = {};
-        data.id = id;
+        data.id = this.editForm.getAttribute('data-id');
         // артикул
         if (this.editForm.articul) {
             data.articul = this.editForm.articul
@@ -121,26 +92,8 @@ class ProductClientController {
         data.name = this.editForm.name.value;
         // статус
         data.status = this.editForm.status.value;
-        // атрибуты
-        let attrMap = new Map();
-        let attributesElements = document.querySelectorAll(
-            ".form-edit-product__attribute"
-        );
-        if (attributesElements.length > 0) {
-            attributesElements.forEach((element) => {
-                let name = element.querySelector(
-                    ".form-edit-product__attr-name"
-                ).value;
-                let value = element.querySelector(
-                    ".form-edit-product__attr-value"
-                ).value;
-                if (name !== "" && value !== "") {
-                    attrMap.set(name, value);
-                }
-            });
-        }
-        data.data = JSON.stringify(Object.fromEntries(attrMap));
-        
+        // аттрибуты
+        data.data = this.getAttributesFromForm(this.editForm);
         // обработка результата запроса
         let process = (data) => {
             if (data.result == 1) {
@@ -149,15 +102,14 @@ class ProductClientController {
                 this.msgElement.textContent = data.description;
             }
         };
-    
+        // заголовки
         let headers = {
             "X-CSRF-TOKEN": this.csrfToken.getAttribute("content"),
             'Content-Type': 'application/json'
         };
-
         // запрос на сервер
         ServerRequest.execute(
-            `/product/${id}`,
+            `/product/${data.id}`,
             process,
             "patch",
             this.msgElement,
@@ -194,5 +146,27 @@ class ProductClientController {
             null,
             headers
         );
+    }
+
+    getAttributesFromForm(form) {
+        // атрибуты
+        let data = new Map();
+        let attributesElements = document.querySelectorAll(
+            `.${form.id}__attribute`
+        );
+        if (attributesElements.length > 0) {
+            attributesElements.forEach((element) => {
+                let name = element.querySelector(
+                    `.${form.id}__attr-name`
+                ).value;
+                let value = element.querySelector(
+                    `.${form.id}__attr-value`
+                ).value;
+                if (name !== "" && value !== "") {
+                    data.set(name, value);
+                }
+            });
+        }
+        return JSON.stringify(Object.fromEntries(data));        
     }
 }
