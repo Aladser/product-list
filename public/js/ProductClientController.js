@@ -23,7 +23,7 @@ class ProductClientController {
 
         // форма добавления нового товара
         if (this.addForm) {
-            this.addForm.onsubmit = (event) => this.add(addForm, event);
+            this.addForm.onsubmit = event => this.add(event);
             this.addFormId = addForm.id;
         }
         // форма изменения товара
@@ -34,7 +34,7 @@ class ProductClientController {
     }
 
     // добавить запись в БД
-    add(form, event) {
+    add(event) {
         event.preventDefault();
 
         // атрибуты
@@ -66,10 +66,10 @@ class ProductClientController {
             }
         };
 
-        let formData = new FormData(form);
+        let formData = new FormData(this.addForm);
         formData.set("data", data);
         // id, если редактирование
-        let idAttr = form.getAttribute("data-id");
+        let idAttr = this.addForm.getAttribute("data-id");
         if (idAttr) {
             formData.set("id", idAttr);
         }
