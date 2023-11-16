@@ -23,10 +23,6 @@ class ServerRequest {
             });
         }
 
-        let resp = response.text();
-        console.log(URL);
-        resp.then(data => console.log(data));
-        return;
         switch (response.status) {
             case 200:
                 let data = await response.json();
