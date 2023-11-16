@@ -43,7 +43,7 @@ function clickRow(e) {
         let id = row.id.slice(row.id.indexOf("-") + 1);
         // обновление ссылок кнопок
         showBtn.href = `/product/${id}`;
-        editBtn.href = `/product/edit/${id}`;
+        editBtn.href = `/product/${id}/edit`;
         removeBtn.onclick = () => {
             tableController.remove(row);
             hideButtons();

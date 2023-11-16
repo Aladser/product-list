@@ -8,8 +8,18 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/*
+GET|HEAD        product ...................... product.index › ProductController@index
+  POST          product .......................product.store › ProductController@store
+  GET|HEAD      product/create ................product.create › ProductController@create
+  GET|HEAD      product/{product} .............product.show › ProductController@show
+  PUT|PATCH     product/{product} .............product.update › ProductController@update
+  DELETE        product/{product} .............product.destroy › ProductController@destroy
+  GET|HEAD      product/{product}/edit ........product.edit › ProductController@edit
+*/
 class ProductController extends Controller
 {
+    // страница товаров
     public function index()
     {
         $products = [];
@@ -26,25 +36,7 @@ class ProductController extends Controller
         return view('products', ['products' => $products]);
     }
 
-    // форма редактирования
-    public function show($id)
-    {
-        $product = Product::find($id);
-        $data = [];
-        $data['id'] = $product->id;
-        $data['articul'] = $product->articul;
-        $data['name'] = $product->name;
-        $data['status'] = $product->status === 'available' ? 'Доступен' : 'Недоступен';
-        $data['data'] = json_decode($product->data);
-
-        return view('show', ['product' => $data]);
-    }
-
-    public function create()
-    {
-        return view('create-product');
-    }
-
+    // сохранить новый товар
     public function store(Request $request)
     {
         $data = $request->all();
@@ -83,15 +75,28 @@ class ProductController extends Controller
         }
     }
 
-    public function destroy($id, Request $request)
+    // форма создания нового товара
+    public function create()
     {
-        $isDeleted = Product::find($id)->delete();
-
-        return ['result' => $isDeleted ? 1 : 0];
+        return view('create-product');
     }
 
-    // форма редактирования
-    public function edit($id)
+    // карточка товара
+    public function show(string $id)
+    {
+        $product = Product::find($id);
+        $data = [];
+        $data['id'] = $product->id;
+        $data['articul'] = $product->articul;
+        $data['name'] = $product->name;
+        $data['status'] = $product->status === 'available' ? 'Доступен' : 'Недоступен';
+        $data['data'] = json_decode($product->data);
+
+        return view('show', ['product' => $data]);
+    }
+
+    // форма редактирования товара
+    public function edit(string $id)
     {
         if (Auth::user()->is_admin) {
             config(['products.role' => 'admin']);
@@ -110,8 +115,7 @@ class ProductController extends Controller
         return view('edit-product', ['product' => $data]);
     }
 
-    // обновить данные в БД
-    public function update(Request $request)
+    public function update(Request $request, string $id)
     {
         $data = $request->all();
 
@@ -137,6 +141,13 @@ class ProductController extends Controller
         } else {
             return ['result' => 0, 'description' => 'ошибка изменения данных'];
         }
+    }
+
+    public function destroy(string $id)
+    {
+        $isDeleted = Product::find($id)->delete();
+
+        return ['result' => $isDeleted ? 1 : 0];
     }
 
     // валидация полей

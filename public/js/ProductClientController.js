@@ -5,6 +5,7 @@ class ProductClientController extends ClientController {
         this.formClass = formClass;
     }
 
+    
     // добавить запись в БД
     add(form, event) {
         event.preventDefault();
