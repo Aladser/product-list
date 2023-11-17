@@ -8,10 +8,10 @@
     @endsection
     
     @section('js')
-        <script src="/js/ServerRequest.js" defer></script>
-        <script src="/js/ProductClientController.js" defer></script>
-        <script src="/js/ProductAttribute.js" defer></script>
-        <script src="/js/create-product.js" defer></script>
+        <script src="/js/classes/ServerRequest.js" defer></script>
+        <script src="/js/classes/ProductClientController.js" defer></script>
+        <script src="/js/classes/ProductAttribute.js" defer></script>
+        <script src="/js/pages/create-product.js" defer></script>
     @endsection
 
     <div class="bg-black-theme overflow-hidden pt-4 ps-2 w-200">

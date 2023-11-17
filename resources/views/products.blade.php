@@ -4,9 +4,9 @@
     @endsection
 
     @section('js')
-        <script src="/js/ServerRequest.js" defer></script>
-        <script src="/js/ProductClientController.js" defer></script>
-        <script src="/js/dashboard.js" defer></script>
+        <script src="/js/classes/ServerRequest.js" defer></script>
+        <script src="/js/classes/ProductClientController.js" defer></script>
+        <script src="/js/pages/dashboard.js" defer></script>
     @endsection
 
     <x-slot name="header">
