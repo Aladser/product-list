@@ -62,6 +62,7 @@ class ProductController extends Controller
 
                 return [
                     'result' => 1,
+                    'type' => 'добавлен',
                     'row' => [
                         'name' => $data['name'],
                         'articul' => $data['articul'],
@@ -72,6 +73,42 @@ class ProductController extends Controller
             }
         } else {
             return ['result' => 0, 'description' => 'артикул существует'];
+        }
+    }
+
+    // обновить товар
+    public function update(Request $request, string $id)
+    {
+        $data = $request->all();
+
+        $validateResult = $this->validateFields($data);
+        if ($validateResult['result'] == 0) {
+            return $validateResult;
+        }
+
+        $product = Product::find($data['id']);
+
+        // проверка прав пользователя на сервере, что он может изменять артикул
+        if (Auth::user()->is_admin) {
+            $product->articul = $data['articul'];
+        }
+
+        $product->name = $data['name'];
+        $product->status = $data['status'];
+        $product->data = $data['data'];
+        $isSaved = $product->save();
+
+        if ($isSaved) {
+            return [
+                'result' => 1,
+                'type' => 'обновлен',
+                'row' => [
+                    'name' => $data['name'],
+                    'articul' => $data['articul'],
+                ],
+            ];
+        } else {
+            return ['result' => 0, 'description' => 'ошибка изменения данных'];
         }
     }
 
@@ -115,34 +152,6 @@ class ProductController extends Controller
         return view('edit-product', ['product' => $data]);
     }
 
-    public function update(Request $request, string $id)
-    {
-        $data = $request->all();
-
-        $validateResult = $this->validateFields($data);
-        if ($validateResult['result'] == 0) {
-            return $validateResult;
-        }
-
-        $product = Product::find($data['id']);
-
-        // проверка прав пользователя на сервере, что он может изменять артикул
-        if (Auth::user()->is_admin) {
-            $product->articul = $data['articul'];
-        }
-
-        $product->name = $data['name'];
-        $product->status = $data['status'];
-        $product->data = $data['data'];
-        $isSaved = $product->save();
-
-        if ($isSaved) {
-            return ['result' => 1];
-        } else {
-            return ['result' => 0, 'description' => 'ошибка изменения данных'];
-        }
-    }
-
     public function destroy(string $id)
     {
         $isDeleted = Product::find($id)->delete();
@@ -153,11 +162,6 @@ class ProductController extends Controller
     // валидация полей
     private function validateFields($data)
     {
-        // валидация длины имени
-        if (strlen($data['name']) < 10) {
-            return ['result' => 0, 'description' => 'Длина имени не менее 10 символов'];
-        }
-
         // проверка артикула
         if (array_key_exists('articul', $data)) {
             $chr = 'a-zA-Z0-9';

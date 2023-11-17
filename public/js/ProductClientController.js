@@ -38,12 +38,12 @@ class ProductClientController {
 
         // форма добавления нового товара
         if (this.addForm) {
-            this.addForm.onsubmit = event => this.add(event);
+            this.addForm.onsubmit = (event) => this.add(event);
             this.addFormId = addForm.id;
         }
         // форма изменения товара
         if (this.editForm) {
-            this.editForm.onsubmit = event => this.update(event);
+            this.editForm.onsubmit = (event) => this.update(event);
             this.editFormId = editForm.id;
         }
     }
@@ -51,24 +51,17 @@ class ProductClientController {
     // добавить новый товар в БД
     add(event) {
         event.preventDefault();
-        // действия после успешного добавления данных в БД
-        let process = (data) => {
-            if (data.result == 1) {
-                this.msgElement.textContent =`${data.row.articul}: ${data.row.name} добавлен`;
-            } else {
-                this.msgElement.textContent = data.description;
-            }
-        };
+        // ---данные---
         let formData = new FormData(this.addForm);
         formData.set("data", this.getAttributesFromForm(this.addForm));
-        // заголовки
+        // ---заголовки---
         let headers = {
             "X-CSRF-TOKEN": this.csrfToken.getAttribute("content"),
         };
-        // запрос на сервер
+        // ---запрос на сервер---
         ServerRequest.execute(
             this.URL,
-            process,
+            (data) => this.processData(data),
             "post",
             this.msgElement,
             formData,
@@ -79,41 +72,35 @@ class ProductClientController {
     // обновить товар в БД
     update(event) {
         event.preventDefault();
-
-        let data = {};
-        data.id = this.editForm.getAttribute('data-id');
+        // ---данные---
+        let product = {};
+        // id
+        product.id = this.editForm.getAttribute("data-id");
         // артикул
         if (this.editForm.articul) {
-            data.articul = this.editForm.articul
+            product.articul = this.editForm.articul;
         } else {
-            data.articul = document.querySelector('#form-edit-product').textContent;
+            product.articul =
+            document.querySelector(`#${this.editFormId}__articul`).textContent;
         }
         // имя
-        data.name = this.editForm.name.value;
+        product.name = this.editForm.name.value;
         // статус
-        data.status = this.editForm.status.value;
-        // аттрибуты
-        data.data = this.getAttributesFromForm(this.editForm);
-        // обработка результата запроса
-        let process = (data) => {
-            if (data.result == 1) {
-                this.msgElement.textContent = 'данные обновлены';
-            } else {
-                this.msgElement.textContent = data.description;
-            }
-        };
-        // заголовки
+        product.status = this.editForm.status.value;
+        // атрибуты
+        product.data = this.getAttributesFromForm(this.editForm);
+        // ---заголовки---
         let headers = {
             "X-CSRF-TOKEN": this.csrfToken.getAttribute("content"),
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
         };
-        // запрос на сервер
+        // ---запрос на сервер---
         ServerRequest.execute(
-            `/product/${data.id}`,
-            process,
+            `${this.URL}/${product.id}`,
+            (data) => this.processData(data),
             "patch",
             this.msgElement,
-            JSON.stringify(data),
+            JSON.stringify(product),
             headers
         );
     }
@@ -148,8 +135,17 @@ class ProductClientController {
         );
     }
 
+    // обработка успешного запроса к серверу
+    processData(data) {
+        if (data.result == 1) {
+            this.msgElement.textContent = `Товар ${data.row.articul} (${data.row.name}) ${data.type}`;
+        } else {
+            this.msgElement.textContent = data.description;
+        }
+    }
+
+    /** получить атрибуты товара */
     getAttributesFromForm(form) {
-        // атрибуты
         let data = new Map();
         let attributesElements = document.querySelectorAll(
             `.${form.id}__attribute`
@@ -167,6 +163,6 @@ class ProductClientController {
                 }
             });
         }
-        return JSON.stringify(Object.fromEntries(data));        
+        return JSON.stringify(Object.fromEntries(data));
     }
 }
