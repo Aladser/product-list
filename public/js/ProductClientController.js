@@ -78,7 +78,7 @@ class ProductClientController {
         product.id = this.editForm.getAttribute("data-id");
         // артикул
         if (this.editForm.articul) {
-            product.articul = this.editForm.articul;
+            product.articul = this.editForm.articul.value;
         } else {
             product.articul =
             document.querySelector(`#${this.editFormId}__articul`).textContent;
