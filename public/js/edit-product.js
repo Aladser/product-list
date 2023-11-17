@@ -8,3 +8,10 @@ const tableController = new ProductClientController(
     null,
     document.querySelector(`.${formClass}`)
 );
+
+// кнопка добавить аттрибут
+const addAttrBtn = document.querySelector(`.${formClass}__add-attr`);
+// кнопка секции атрибутов
+const attributesSection = document.querySelector(`.${formClass}__attributes`);
+// Атрибуты товара
+const productAttributes = new ProductAttribute(formClass, addAttrBtn, attributesSection);

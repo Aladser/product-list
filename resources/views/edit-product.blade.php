@@ -6,8 +6,8 @@
     @section('js')
         <script src="/js/ServerRequest.js" defer></script>
         <script src="/js/ProductClientController.js" defer></script>
+        <script src="/js/ProductAttribute.js" defer></script>
         <script src="/js/edit-product.js" defer></script>
-        <script src="/js/attributes.js" defer></script>
     @endsection
 
     <x-slot name="header">
