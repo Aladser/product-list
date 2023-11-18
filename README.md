@@ -57,3 +57,34 @@
 #### Готовое приложение упаковать в docker. 
 
 За докеризацию отвечает папка *docker-compose*, файлы *.env*, *Dockerfile*, *docker-compose.yml* в корне проекта
+
+```
+version: "3.7"
+services:
+  app:
+    ...
+    image: travellist
+    container_name: productlist-app
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    ...
+
+  db:
+    image: postgres
+    container_name: productlist-db
+    volumes:
+      - ./docker-compose/pgsql:/docker-entrypoint-initdb.d/
+    ...
+
+  nginx:
+    image: nginx:alpine
+    container_name: productlist-nginx
+    ...
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    ...
+
+...
+```
