@@ -1,6 +1,5 @@
 ## Product-list – база товаров
 
-![доска](/storage/images/1.png)
 ![товары](/storage/images/3.png)
 ![карточка](/storage/images/4.png)
 ![edit](/storage/images/5.png)
