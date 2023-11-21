@@ -1,8 +1,11 @@
 ## Product-list – база товаров
 
-![товары](/storage/images/3.png)
-![карточка](/storage/images/4.png)
-![edit](/storage/images/5.png)
+![welcome](/storage/images/welcome.png)
+![login](/storage/images/login.png)
+![товары](/storage/images/товары.png)
+![add](/storage/images/add.png)
+![edit](/storage/images/edit.png)
+![show](/storage/images/show.png)
 
 Особенности
 + Авторизация и регистрация пользователей. Две роли: обычный пользователь и администратор
@@ -42,7 +45,6 @@
 #### Сделать валидацию полей ARTICLE
 
 Валидация происходит в контроллере App\Http\Controllers\ProductController, методе validateFields
-![доска](/storage/images/2.png)
 
 #### Создать роль администратора
 
