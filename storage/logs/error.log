@@ -1,3 +1,1 @@
 
-[Wed Jan 31 18:52:39.925030 2024] [php:warn] [pid 4406] [client 192.168.244.133:58452] PHP Warning:  require(/var/www/product-list/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /var/www/product-list/public/index.php on line 34
-[Wed Jan 31 18:52:39.925079 2024] [php:error] [pid 4406] [client 192.168.244.133:58452] PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/product-list/public/../vendor/autoload.php' (include_path='.:/usr/share/php') in /var/www/product-list/public/index.php:34\nStack trace:\n#0 {main}\n  thrown in /var/www/product-list/public/index.php on line 34

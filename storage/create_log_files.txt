@@ -1,0 +1,4 @@
+touch storage/logs/access.log &&
+touch storage/logs/error.log &&
+touch storage/logs/laravel.log &&
+touch storage/logs/pids.log
